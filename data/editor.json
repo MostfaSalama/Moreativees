@@ -9,7 +9,15 @@
     "footer"
   ],
   "hidden": {},
-  "els": {},
+  "els": {
+    "e159zyxa": {
+      "css": {
+        "desktop": {
+          "opacity": "0.9"
+        }
+      }
+    }
+  },
   "blocks": [],
   "elorder": {
     "hero": [

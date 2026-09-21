@@ -1,0 +1,239 @@
+{
+  "site": {
+    "brand": "MOREATIVE",
+    "email": "moreatives@gmail.com"
+  },
+  "hero": {
+    "kicker": "",
+    "lines": [
+      "NO INFLATED PROCESS",
+      "NO JARGON HEAVY CALLS",
+      "NO BACK AND FORTH FOR THE SAKE OF IT",
+      "JUST GIVE US A BRIEF AND WE MOVE",
+      "FAST, CLEAN, AND STRAIGHT TO THE POINT"
+    ],
+    "cta": "LET'S MAKE WAVES"
+  },
+  "story_head": {
+    "kicker": "",
+    "title": "THE WORK SPEAKS\nBEFORE WE DO"
+  },
+  "projects": [
+    {
+      "id": "coffee-beans",
+      "cat": "Branding Identity",
+      "name": "Coffee Beans",
+      "desc": "Brand identity for a Saudi coffee brand — bold orange, heritage type, set against desert light. Full case with logo system, packaging and social templates in 1920x1080 showcase.",
+      "image": "assets/uploads/1789918128332-thumbnail.png",
+      "client": "Coffee Beans Co.",
+      "year": "2026",
+      "role": "Brand Identity & Packaging",
+      "services": [
+        "Strategy",
+        "Logo System",
+        "Packaging"
+      ],
+      "gallery": [
+        "assets/uploads/1789910667265-.jpg",
+        "assets/uploads/1789910671694-n5.jpg",
+        "assets/uploads/1789910679288-n7.jpg",
+        "assets/uploads/1789910683587-n8.jpg",
+        "assets/uploads/1789910783926-Free-Coffee-Cup-Paper-Holder-Mockup.png",
+        "assets/uploads/1789910789125-Branding-mockup.png"
+      ],
+      "status": "published",
+      "links": [],
+      "keywords": [
+        "coffee",
+        "beans",
+        "brand",
+        "identity",
+        "saudi",
+        "bold",
+        "strategy",
+        "logo system",
+        "packaging",
+        "social",
+        "coffee beans co.",
+        "branding identity"
+      ]
+    },
+    {
+      "id": "flammer",
+      "cat": "Packaging",
+      "name": "FLAMMER",
+      "desc": "Fast-food brand system: toys, bags and menus in hot red with playful Arabic/Latin lockup.",
+      "image": "assets/design-02-flammer.jpg?v=2",
+      "client": "Flammer Foods",
+      "year": "2025",
+      "role": "Brand System & Menu",
+      "services": [
+        "Art Direction",
+        "Packaging",
+        "Menu Design"
+      ],
+      "gallery": [
+        "assets/design-02-flammer.jpg?v=2",
+        "https://picsum.photos/seed/flammer-a1920/1920/1080",
+        "https://picsum.photos/seed/flammer-b1920/1920/1080",
+        "https://picsum.photos/seed/flammer-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    },
+    {
+      "id": "kassy",
+      "cat": "Logo",
+      "name": "KASSY",
+      "desc": "Kassy fashion online store — luxe serif on solar yellow, from hanger to tee.",
+      "image": "assets/design-03-kassy.jpg?v=2",
+      "client": "Kassy Store",
+      "year": "2025",
+      "role": "E-commerce & Campaign",
+      "services": [
+        "Branding",
+        "Web Visuals",
+        "Campaign"
+      ],
+      "gallery": [
+        "assets/design-03-kassy.jpg?v=2",
+        "https://picsum.photos/seed/kassy-a1920/1920/1080",
+        "https://picsum.photos/seed/kassy-b1920/1920/1080",
+        "https://picsum.photos/seed/kassy-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    },
+    {
+      "id": "masjid-3d",
+      "cat": "3D Modeling",
+      "name": "MASJID 3D",
+      "desc": "Three 3D concepts for a modern mosque: movable prayer hall, green dome pavilion and stilted hall.",
+      "image": "assets/design-04-architecture.jpg?v=2",
+      "client": "Masjid Concept",
+      "year": "2024",
+      "role": "3D Visualization",
+      "services": [
+        "3D",
+        "Architecture",
+        "Visualization"
+      ],
+      "gallery": [
+        "assets/design-04-architecture.jpg?v=2",
+        "https://picsum.photos/seed/masjid-a1920/1920/1080",
+        "https://picsum.photos/seed/masjid-b1920/1920/1080",
+        "https://picsum.photos/seed/masjid-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    },
+    {
+      "id": "temiz",
+      "cat": "Prints",
+      "name": "TEMIZ",
+      "desc": "Out-of-home superboard: DESIGN YOUR BILLBOARD WITH US — hero dog on night city.",
+      "image": "assets/design-05-billboard.jpg?v=2",
+      "client": "Temiz OOH",
+      "year": "2024",
+      "role": "OOH & Billboard",
+      "services": [
+        "OOH",
+        "Art Direction",
+        "Retouch"
+      ],
+      "gallery": [
+        "assets/design-05-billboard.jpg?v=2",
+        "https://picsum.photos/seed/temiz-a1920/1920/1080",
+        "https://picsum.photos/seed/temiz-b1920/1920/1080",
+        "https://picsum.photos/seed/temiz-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    },
+    {
+      "id": "lumen-collective",
+      "cat": "Production",
+      "name": "LUMEN COLLECTIVE",
+      "desc": "Production design for a live launch event — stage, light and motion running as one system.",
+      "image": "https://picsum.photos/seed/lumen-cover/1280/800",
+      "client": "Lumen Co.",
+      "year": "2025",
+      "role": "Production Design",
+      "services": [
+        "Production",
+        "Staging",
+        "Motion"
+      ],
+      "gallery": [
+        "https://picsum.photos/seed/lumen-cover/1280/800",
+        "https://picsum.photos/seed/lumen-a1920/1920/1080",
+        "https://picsum.photos/seed/lumen-b1920/1920/1080",
+        "https://picsum.photos/seed/lumen-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    },
+    {
+      "id": "velvet-arch",
+      "cat": "Logo",
+      "name": "VELVET ARCH",
+      "desc": "Logo and visual identity for a boutique architecture practice — sharp mark, quiet luxury.",
+      "image": "https://picsum.photos/seed/velvet-cover/1280/800",
+      "client": "Velvet Arch",
+      "year": "2026",
+      "role": "Logo & Identity",
+      "services": [
+        "Logo",
+        "Identity"
+      ],
+      "gallery": [
+        "https://picsum.photos/seed/velvet-cover/1280/800",
+        "https://picsum.photos/seed/velvet-a1920/1920/1080",
+        "https://picsum.photos/seed/velvet-b1920/1920/1080",
+        "https://picsum.photos/seed/velvet-c1920/1920/1080"
+      ],
+      "status": "published",
+      "links": []
+    }
+  ],
+  "cinematic": [
+    {
+      "project": "coffee-beans",
+      "cover": "assets/uploads/1789917300868-1.png"
+    },
+    {
+      "project": "flammer",
+      "cover": ""
+    },
+    {
+      "project": "kassy",
+      "cover": ""
+    },
+    {
+      "project": "masjid-3d",
+      "cover": ""
+    },
+    {
+      "project": "temiz",
+      "cover": ""
+    }
+  ],
+  "studio": {
+    "kicker": "THE STUDIO",
+    "title": "BOLD STORIES, TOLD LOUD.",
+    "text": "Moreative exists on one refusal: the refusal to make anything that’s been made before every brief that lands on our desk gets stripped down and rebuilt from zero because “similar to” isn’t in our vocabulary, and neither is “good enough.” Years of chasing the idea nobody else has touched taught us one thing: push it until it’s undeniable, every single time.",
+    "text2": "The work speaks before we do. We hold every project to one standard it has to feel worth more than what it cost. No inflated process, no jargon heavy calls, no back and forth for the sake of it. You tell us what you need, we understand it exactly, and we move fast, clean, and straight to the point.",
+    "line": "IDENTITY • 3D • PRINT • SOCIAL • FULL SCALE PROJECTS",
+    "tags": [
+      "Strategy",
+      "Content",
+      "Motion",
+      "Social"
+    ]
+  },
+  "giant": {
+    "text": "MOREATIVE",
+    "sub": "With Mostfa Salama",
+    "sub2": "Sr. Graphic Designer"
+  }
+}

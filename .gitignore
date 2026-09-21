@@ -1,0 +1,7 @@
+data/*.bak
+studio/
+studio-bridge.js
+admin/
+*.log
+.DS_Store
+Thumbs.db

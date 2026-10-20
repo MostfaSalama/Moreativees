@@ -163,6 +163,140 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .flag em{position:absolute;left:.9rem;bottom:.7rem;z-index:1;font-style:normal;font-size:.62rem;letter-spacing:.22em;color:#fff;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);padding:.35rem .8rem;border-radius:999px}
 .flag i{position:absolute;right:.9rem;bottom:.7rem;z-index:1;font-style:normal;font-size:.62rem;letter-spacing:.2em;color:rgba(255,255,255,.6)}
 @media(min-width:769px){.studio-side{position:sticky;top:5.5rem;align-self:start}}
+
+/* ===== STUDIO — THE MANIFESTO (PIN + SCROLL) ===== */
+#studio{position:relative;background:#050505;padding:0!important}
+.mf{position:relative;height:440vh;height:440svh;background:#050505}
+.mf-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;overflow:hidden;background:#050505}
+.mf-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.mf-still{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.82);opacity:0;transform:scale(1.06);transition:opacity 1.4s ease}
+.mf-still.on{opacity:.46}
+.mf-vig{position:absolute;inset:0;background:radial-gradient(ellipse 72% 60% at 58% 45%,rgba(5,5,5,.08) 0%,rgba(5,5,5,.52) 58%,#050505 90%)}
+.mf-grain{position:absolute;inset:0;opacity:.055;background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+.mf-wipe{position:absolute;inset:0;z-index:7;pointer-events:none;background:#fff;transform:scaleX(0);opacity:0}
+.mf.act-switch .mf-wipe{animation:mfWipe 1s cubic-bezier(.2,.8,.2,1)}
+@keyframes mfWipe{0%{transform:scaleX(0);opacity:.85;transform-origin:left}45%{transform:scaleX(1);opacity:.85;transform-origin:left}46%{transform-origin:right;opacity:.85}100%{transform:scaleX(0);opacity:0;transform-origin:right}}
+.mf-ghost{position:absolute;right:clamp(.8rem,3.4vw,4rem);top:50%;transform:translateY(-50%);z-index:1;display:grid;pointer-events:none;text-align:right;font-family:'Archivo Black',sans-serif;font-size:clamp(6rem,17vw,15rem);line-height:.78;letter-spacing:-.045em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.22)}
+.mf-ghost i{grid-area:1/1;font-style:normal;opacity:0;transition:opacity .9s ease}
+.mf-ghost i.on{opacity:1}
+.mf-hud{position:relative;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:clamp(4.7rem,9vh,5.9rem) clamp(1.4rem,4.4vw,4.4rem) 0;font-family:'Space Grotesk',sans-serif;font-size:.52rem;letter-spacing:.3em;color:rgba(255,255,255,.42);pointer-events:none}
+.mf-file{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;row-gap:.25rem}
+.mf-file b{color:#fff;font-weight:600;letter-spacing:.34em;font-size:.55rem}
+.mf-scene{color:rgba(255,255,255,.5);transition:color .4s}
+.mf-tc{display:flex;align-items:center;gap:.65rem;white-space:nowrap}
+.mf-rec{width:6px;height:6px;border-radius:50%;background:#fff;animation:mfRec 1.6s step-end infinite}
+@keyframes mfRec{0%,100%{opacity:1}50%{opacity:.12}}
+#mf-tc{font-family:'Archivo Black',sans-serif;font-size:.58rem;letter-spacing:.14em;color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums}
+.mf-main{position:relative;z-index:5;flex:1;display:grid;grid-template-columns:clamp(3.8rem,7vw,6.6rem) minmax(0,1fr) clamp(8.5rem,15vw,12.5rem);align-items:center;gap:clamp(1rem,2.6vw,2.6rem);padding:clamp(.6rem,3vh,2.4rem) clamp(4.4rem,9vw,7rem) clamp(.6rem,2vh,1.8rem) clamp(1.4rem,4.4vw,4.4rem);min-height:0}
+.mf-side{display:flex;flex-direction:column;justify-content:center;gap:2.4rem;align-self:stretch;border-right:1px solid rgba(255,255,255,.09);padding-right:.4rem}
+.mf-take{display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;background:none;border:0;padding:0;font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.26em;color:rgba(255,255,255,.26);cursor:pointer;text-align:left;transition:color .35s}
+.mf-take i{font-style:normal;font-family:'Archivo Black',sans-serif;font-size:.58rem;letter-spacing:.06em;color:rgba(255,255,255,.4);transition:color .35s}
+.mf-take span{white-space:nowrap}
+.mf-take::after{content:'';height:1px;width:0;background:#fff;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.mf-take.on{color:#fff}
+.mf-take.on i{color:#fff}
+.mf-take.on::after{width:2rem}
+.mf-copy{min-width:0;max-width:min(880px,100%)}
+.mf-kicker{display:flex;align-items:center;gap:.9rem;margin:0 0 clamp(.8rem,2.2vh,1.4rem);font-family:'Space Grotesk',sans-serif;font-size:.54rem;letter-spacing:.32em;color:rgba(255,255,255,.45)}
+.mf-kicker::before{content:'';flex:none;width:2.5rem;height:1px;background:rgba(255,255,255,.38)}
+.mf-kicker b{color:#fff;font-weight:500;letter-spacing:.34em}
+.mf-p{margin:0;font-size:clamp(1.32rem,2.15vw,1.95rem);line-height:1.52;letter-spacing:-.02em;font-weight:500;color:#fff}
+.mf-p+.mf-p{margin-top:1.05em}
+.mf-p .w{opacity:.13;transition:none}
+.mf-p .w.on{color:#fff;text-shadow:0 0 30px rgba(255,255,255,.25)}
+.mf-p .w.past{color:rgba(255,255,255,.86)}
+.mf-done .mf-p .w.past{color:rgba(255,255,255,.88)}
+.mf-strip{display:flex;flex-direction:column;gap:.6rem;width:100%;justify-self:end}
+.mf-frame{position:relative;margin:0;aspect-ratio:16/10;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#0a0a0a;opacity:.55;transition:opacity .7s ease,border-color .7s ease,transform .7s ease}
+.mf-frame img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transform:scale(1.03);transition:transform 6s linear}
+.mf-frame.on{opacity:1;border-color:rgba(255,255,255,.7);transform:translateY(-2px)}
+.mf-frame.on img{transform:scale(1.09)}
+.mf-frame figcaption{position:absolute;left:.55rem;right:.55rem;bottom:.45rem;display:flex;justify-content:space-between;gap:.5rem;font-family:'Space Grotesk',sans-serif;font-size:.4rem;letter-spacing:.2em;color:#fff;text-shadow:0 1px 8px #000;opacity:0;transition:opacity .5s}
+.mf-frame.on figcaption{opacity:1}
+.mf-rail{position:relative;z-index:6;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:clamp(.8rem,2vw,1.6rem);padding:0 clamp(1.4rem,4.4vw,4.4rem) clamp(1rem,2.4vh,1.6rem);font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.28em;color:rgba(255,255,255,.35)}
+.mf-bar{position:relative;height:1px;background:rgba(255,255,255,.12)}
+.mf-bar i{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+.mf-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(100% - 1px),rgba(5,5,5,.9) 0) 0 0/12.5% 100% repeat-x}
+.mf-hint{display:flex;align-items:center;gap:.6rem;white-space:nowrap;transition:opacity .5s}
+.mf-hint::after{content:'';width:2.2rem;height:1px;background:rgba(255,255,255,.5);transform-origin:left;animation:mfHint 2.4s ease-in-out infinite}
+@keyframes mfHint{0%,100%{transform:scaleX(.18);opacity:.35}50%{transform:scaleX(1);opacity:1}}
+.st-roll{position:relative;background:#050505;border-top:1px solid rgba(255,255,255,.08);padding:clamp(1.8rem,4.4vh,3rem) 0 clamp(1.2rem,3vh,2rem);overflow:hidden}
+.st-roll-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:0 clamp(1.4rem,4.5vw,4.5rem) clamp(1rem,2.6vh,1.6rem);font-family:'Space Grotesk',sans-serif;font-size:.5rem;letter-spacing:.32em;color:rgba(255,255,255,.4)}
+.st-roll-head .svc-line{margin:0;color:rgba(255,255,255,.55)}
+.st-roll-view{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.st-roll-view::before,.st-roll-view::after{content:'';position:absolute;top:0;bottom:0;width:clamp(2rem,5vw,5rem);z-index:2;pointer-events:none}
+.st-roll-view::before{left:0;background:linear-gradient(90deg,#050505,rgba(5,5,5,0))}
+.st-roll-view::after{right:0;background:linear-gradient(270deg,#050505,rgba(5,5,5,0))}
+.st-roll-track{display:flex;width:max-content;animation:stRoll 36s linear infinite}
+.st-roll:hover .st-roll-track{animation-play-state:paused}
+.st-roll-group{display:flex;align-items:center;gap:clamp(1.4rem,3vw,2.6rem);padding-right:clamp(1.4rem,3vw,2.6rem)}
+.st-roll-group span{font-family:'Archivo Black',sans-serif;font-size:clamp(1.15rem,3vw,2.4rem);letter-spacing:-.01em;color:#f2f2f2;white-space:nowrap}
+.st-roll-group i{font-style:normal;font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:clamp(1rem,2vw,1.6rem);color:rgba(255,255,255,.35)}
+@keyframes stRoll{to{transform:translateX(-50%)}}
+.st-band{position:relative;background:#050505;border-top:1px solid rgba(255,255,255,.08);padding:clamp(3.4rem,9vh,6rem) clamp(1.4rem,5vw,5rem) clamp(4rem,10vh,7rem)}
+.st-board{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(1.4rem,4vw,4rem);align-items:center;max-width:1180px;margin:0 auto}
+.st-side{display:flex;flex-direction:column;min-width:0}
+.st-side .studio-logo-card{height:clamp(15rem,26vh,20rem);border-radius:1.5rem}
+.st-copy{min-width:0}
+.st-kicker{display:flex;align-items:center;gap:.9rem;margin:0 0 1rem;font-family:'Space Grotesk',sans-serif;font-size:.55rem;letter-spacing:.34em;color:rgba(255,255,255,.45)}
+.st-kicker::before{content:'';flex:none;width:2.6rem;height:1px;background:rgba(255,255,255,.35)}
+.st-title{font-family:'Archivo Black',sans-serif;font-size:clamp(2.2rem,4.8vw,4.4rem);line-height:.92;letter-spacing:-.025em;color:#fff;margin:0 0 1.1rem;max-width:14ch}
+.st-note{font-family:'Space Grotesk',sans-serif;font-size:.6rem;letter-spacing:.26em;color:rgba(255,255,255,.4)}
+@media(max-width:1120px) and (min-width:901px){
+.mf-main{grid-template-columns:clamp(3.4rem,6vw,5rem) minmax(0,1fr)}
+.mf-strip{display:none}
+.mf-copy{max-width:100%}
+}
+@media(max-height:740px) and (min-width:901px){
+.mf-hud{padding-top:5.5rem}
+.mf-strip{display:none}
+.mf-main{grid-template-columns:clamp(3.4rem,6vw,5rem) minmax(0,1fr)}
+.mf-p{font-size:clamp(1.02rem,1.68vw,1.4rem)}
+.mf-kicker{margin-bottom:.7rem}
+}
+@media(max-width:900px){
+.mf{height:340vh;height:340svh}
+.mf-main{grid-template-columns:minmax(0,1fr);align-items:center;padding:1rem clamp(1.2rem,5vw,2rem) .8rem}
+.mf-side,.mf-strip,.mf-ghost{display:none}
+.mf-hud{padding:4.6rem 1.2rem 0;font-size:.46rem;letter-spacing:.24em}
+.mf-file{gap:.7rem}
+.mf-file b{font-size:.48rem;letter-spacing:.28em}
+.mf-scene{display:none}
+.mf-tc{gap:.45rem}
+.mf-copy{max-width:100%}
+.mf-kicker{font-size:.48rem;letter-spacing:.26em;margin-bottom:.8rem}
+.mf-p{font-size:clamp(1.12rem,4.5vw,1.36rem);line-height:1.62}
+.mf-p .w{opacity:1!important}
+.mf-p+.mf-p{margin-top:1em}
+.mf-still.on{opacity:.34}
+.mf-rail{padding:0 1.2rem .9rem;gap:.7rem;font-size:.44rem;letter-spacing:.2em;grid-template-columns:auto minmax(0,1fr)}
+.mf-hint{display:flex}
+.st-roll-head{flex-direction:column;align-items:flex-start;gap:.4rem}
+.st-board{grid-template-columns:1fr}
+.st-copy{order:1;margin-bottom:.6rem}
+.st-side{order:2}
+.st-band{padding-top:3.2rem;padding-bottom:3.6rem}
+}
+@media(max-width:900px) and (max-height:640px){
+.mf-hud{padding-top:4.4rem}
+.mf-p{font-size:clamp(.98rem,4.2vw,1.18rem);line-height:1.5}
+.mf-kicker{margin-bottom:.5rem}
+.mf-rail{padding-bottom:.5rem}
+}
+@media(prefers-reduced-motion:reduce){
+.mf{height:auto;min-height:0}
+.mf-stage{position:static;height:auto;min-height:0;display:block}
+.mf-main{display:block;padding:clamp(4.8rem,10vh,6rem) clamp(1.4rem,5vw,4.4rem) clamp(2.4rem,6vh,4rem)}
+.mf-copy{max-width:820px}
+.mf-bg,.mf-ghost,.mf-side,.mf-strip,.mf-hud,.mf-rail{display:none}
+.mf-p,.mf-p .w{color:#f0f0f0!important;text-shadow:none!important;opacity:1!important}
+.mf-kicker{color:rgba(255,255,255,.5)}
+.st-roll-track{animation:none;flex-wrap:wrap;width:auto;gap:1rem;padding:0 1.4rem}
+.st-roll-group{flex-wrap:wrap;padding-right:0}
+.st-roll-group[aria-hidden="true"]{display:none}
+.st-roll-view{-webkit-mask-image:none;mask-image:none}
+.st-roll-view::before,.st-roll-view::after{display:none}
+}
 #behance-view{position:fixed;inset:0;z-index:95;background:#080808;display:none;overflow-y:auto;overscroll-behavior:contain;animation:bFade .45s ease}
 @keyframes bFade{from{opacity:0}to{opacity:1}}
 #behance-view.open{display:block}
@@ -237,7 +371,7 @@ nav>div{padding:.8rem 1rem !important}
 .hero-seq{margin:12vh auto 0}
 .seq-final{font-size:clamp(.9rem,4.2vw,1.05rem) !important;margin:4vh auto 0;text-align:center}
 
-#studio{padding-top:3.5rem !important;padding-bottom:3.5rem !important}
+#studio{padding:0 !important}
 #studio .glass{height:15rem;font-size:3.5rem}
 .studio-logo{width:92px}
 .svc-list li{padding:.85rem .15rem}
@@ -319,13 +453,75 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 </div>
 </div>
 
-<section id="studio" data-sec="studio" class="max-w-7xl mx-auto px-6 py-28 grid md:grid-cols-2 gap-12 items-center">
-<div class="studio-side">
-<div data-reveal class="glass studio-logo-card rounded-3xl h-96 flex items-center justify-center"><div class="studio-shine"></div><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="studio-logo"></div>
+<section id="studio" data-sec="studio">
+<div class="mf" id="mf">
+<div class="mf-stage">
+<div class="mf-bg" aria-hidden="true">
+<img class="mf-still on" src="assets/design-01-coffee-beans.jpg?v=2" alt="">
+<img class="mf-still" src="assets/design-04-architecture.jpg?v=2" alt="">
+<img class="mf-still" src="assets/design-05-billboard.jpg?v=2" alt="">
+<span class="mf-vig"></span><span class="mf-grain"></span>
+</div>
+<div class="mf-ghost" aria-hidden="true"><i class="on">REFUSAL</i><i>VOICE</i></div>
+<div class="mf-wipe" aria-hidden="true"></div>
+<div class="mf-hud">
+<div class="mf-file"><b>STUDIO / MANIFESTO</b><span class="mf-scene" id="mf-scene">SCENE 01 — REFUSAL</span></div>
+<div class="mf-tc"><span class="mf-rec"></span><span id="mf-tc">00:00:00:00</span><span>24 FPS</span></div>
+</div>
+<div class="mf-main">
+<nav class="mf-side" aria-label="Manifesto acts">
+<button class="mf-take on" type="button" data-go="0"><i>TAKE 01</i><span>THE REFUSAL</span></button>
+<button class="mf-take" type="button" data-go="1"><i>TAKE 02</i><span>THE VOICE</span></button>
+</nav>
+<div class="mf-copy">
+<p class="mf-kicker" id="mf-kicker"><b>SCENE 01</b> A POSITION, NOT A PITCH</p>
+<p class="mf-p" data-act="0">Moreative exists on one refusal: never make what’s already been made. No “similar to.” No “good enough.” Every brief is stripped down and rebuilt from zero, pushed until it’s undeniable. The work speaks first.</p>
+<p class="mf-p" data-act="1">Every project has to be worth more than what it costs, no bloated process, no jargon, no back and forth. Tell us what you need. We’ll nail it: fast, clean, straight to the point.</p>
+</div>
+<div class="mf-strip" aria-hidden="true">
+<figure class="mf-frame on"><img src="assets/design-02-flammer.jpg?v=2" alt="" loading="lazy"><figcaption><span>FLAMMER</span><span>FRAME 01</span></figcaption></figure>
+<figure class="mf-frame"><img src="assets/design-03-kassy.jpg?v=2" alt="" loading="lazy"><figcaption><span>KASSY</span><span>FRAME 02</span></figcaption></figure>
+<figure class="mf-frame"><img src="assets/design-05-billboard.jpg?v=2" alt="" loading="lazy"><figcaption><span>TEMIZ</span><span>FRAME 03</span></figcaption></figure>
+</div>
+</div>
+<div class="mf-rail">
+<span class="mf-hint" id="mf-hint">SCROLL TO PLAY</span>
+<div class="mf-bar" aria-hidden="true"><i id="mf-bar"></i></div>
+</div>
+</div>
+</div>
+
+<div class="st-roll" id="studio-services">
+<div class="st-roll-head">
+<p class="svc-line">IDENTITY • 3D • PRINT • SOCIAL • FULL SCALE PROJECTS</p>
+<span>WHAT WE DO / 05</span>
+</div>
+<div class="st-roll-view">
+<div class="st-roll-track">
+<div class="st-roll-group">
+<span>Logo &amp; Brand Identity</span><i>+</i><span>3D Modeling</span><i>+</i><span>Print Design</span><i>+</i><span>Social Campaigns</span><i>+</i><span>Full Project Management</span><i>+</i>
+</div>
+<div class="st-roll-group" aria-hidden="true">
+<span>Logo &amp; Brand Identity</span><i>+</i><span>3D Modeling</span><i>+</i><span>Print Design</span><i>+</i><span>Social Campaigns</span><i>+</i><span>Full Project Management</span><i>+</i>
+</div>
+</div>
+</div>
+</div>
+
+<div class="st-band" id="studio-numbers">
+<div class="st-board">
+<div class="st-side">
+<div data-reveal class="glass studio-logo-card rounded-3xl flex items-center justify-center"><div class="studio-shine"></div><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="studio-logo"></div>
 <div data-reveal class="stats-grid"><div class="stat"><span class="stat-n" data-count="50" data-dur="5.5">0+</span><span class="stat-l">CLIENTS</span></div><div class="stat"><span class="stat-n" data-count="85" data-dur="5.5">0+</span><span class="stat-l">PROJECTS</span></div><div class="stat"><span class="stat-n" data-count="5" data-dur="2">0+</span><span class="stat-l">YEARS EXPERIENCE</span></div></div>
 <div data-reveal class="stat stats-wide" title="Hover to view flags"><span class="cc-base"><span class="stat-n" data-count="7" data-dur="2.7">0+</span><span class="stat-l">COUNTRIES SERVED</span></span><div class="flags"><span class="flag"><img loading="lazy" src="assets/flags/flag-usa.png" alt="USA"><em>USA</em><i>01 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-germany.png" alt="Germany"><em>GERMANY</em><i>02 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-turkey.png" alt="Turkey"><em>TURKEY</em><i>03 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-saudi.png" alt="Saudi Arabia"><em>SAUDI</em><i>04 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-egypt.png" alt="Egypt"><em>EGYPT</em><i>05 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-jordan.png" alt="Jordan"><em>JORDAN</em><i>06 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-iraq.png" alt="Iraq"><em>IRAQ</em><i>07 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-syria.png" alt="Syria"><em>SYRIA</em><i>08 / 08</i></span></div></div>
 </div>
-<div><p data-reveal class="fill-words text-white/85 text-lg leading-relaxed">Moreative exists on one refusal: the refusal to make anything that’s been made before every brief that lands on our desk gets stripped down and rebuilt from zero because “similar to” isn’t in our vocabulary, and neither is “good enough.” Years of chasing the idea nobody else has touched taught us one thing: push it until it’s undeniable, every single time.</p><p data-reveal class="fill-words text-white/85 text-lg leading-relaxed mt-5">The work speaks before we do. We hold every project to one standard it has to feel worth more than what it cost. No inflated process, no jargon heavy calls, no back and forth for the sake of it. You tell us what you need, we understand it exactly, and we move fast, clean, and straight to the point.</p><p data-reveal class="svc-line">IDENTITY • 3D • PRINT • SOCIAL • FULL SCALE PROJECTS</p><p data-reveal class="svc-intro">From a single mark to a fully run event, we build across every scale:</p><ul data-reveal class="svc-list"><li><span class="svc-i">01</span><div><b>Logo &amp; Brand Identity</b><p>the foundation everything else stands on.</p></div></li><li><span class="svc-i">02</span><div><b>3D Modeling</b><p>sculpted in Blender, built to move.</p></div></li><li><span class="svc-i">03</span><div><b>Print Design</b><p>precision to the pixel, zero room for error.</p></div></li><li><span class="svc-i">04</span><div><b>Social Campaigns</b><p>content that stops the scroll, on every platform.</p></div></li><li><span class="svc-i">05</span><div><b>Full Project Management</b><p>from first idea to opening night, for brands, events, and everything between.</p></div></li></ul></div>
+<div data-reveal class="st-copy">
+<p class="st-kicker">THE STUDIO / EST. 2021</p>
+<h2 class="st-title">BOLD STORIES, TOLD LOUD.</h2>
+<p class="st-note">MOREATIVE — CAIRO / REMOTE — WORLDWIDE</p>
+</div>
+</div>
+</div>
 </section>
 
 <section id="grid" data-sec="grid">
@@ -552,7 +748,7 @@ function loadSiteData(){
       if(gt.text){ var gm=document.querySelector('#giant .giant-main'); if(gm) gm.textContent=gt.text; }
       if(gt.sub || gt.sub2){ var gs=document.querySelector('#giant .giant-sub'); if(gs) gs.innerHTML=(gt.sub||'')+' <em>'+(gt.sub2||'')+'</em>'; }
       if(st.title){ var stt2=document.querySelector('#studio h2'); if(stt2) stt2.textContent=st.title; }
-      var sps=document.querySelectorAll('#studio .fill-words');
+      var sps=document.querySelectorAll('#studio .fill-words, #studio .mf-p');
       if(st.text && sps[0]) sps[0].textContent=st.text;
       if(st.text2 && sps[1]) sps[1].textContent=st.text2;
       if(st.line){ var sln=document.querySelector('.svc-line'); if(sln) sln.textContent=st.line; }
@@ -606,6 +802,128 @@ function initCounters(){
   }catch(e){}
 }
 window.initCounters=initCounters;
+function setupManifesto(){
+  var root=document.getElementById('mf'); if(!root) return;
+  var copy=root.querySelector('.mf-copy'); if(!copy) return;
+  var paras=[].slice.call(copy.querySelectorAll('.mf-p'));
+  // split into words once
+  paras.forEach(function(p){
+    if(p.querySelector('.w')) return;
+    var txt=p.textContent.replace(/\s+/g,' ').trim();
+    p.textContent='';
+    var arr=txt.split(' ');
+    arr.forEach(function(w,i){
+      var s=document.createElement('span'); s.className='w'; s.textContent=w; p.appendChild(s);
+      if(i<arr.length-1) p.appendChild(document.createTextNode(' '));
+    });
+  });
+  var p1=paras[0], p2=paras[1];
+  var words1=p1?p1.querySelectorAll('.w'):[];
+  var words2=p2?p2.querySelectorAll('.w'):[];
+  var tcEl=document.getElementById('mf-tc');
+  var bar=document.getElementById('mf-bar');
+  var hint=document.getElementById('mf-hint');
+  var sceneEl=document.getElementById('mf-scene');
+  var kicker=document.getElementById('mf-kicker');
+  var takes=[].slice.call(root.querySelectorAll('.mf-take'));
+  var stills=[].slice.call(root.querySelectorAll('.mf-still'));
+  var frames=[].slice.call(root.querySelectorAll('.mf-frame'));
+  var ghosts=[].slice.call(root.querySelectorAll('.mf-ghost i'));
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mqMobile=window.matchMedia('(max-width:900px)');
+  var SCENES=[{no:'SCENE 01',name:'REFUSAL',line:'A POSITION, NOT A PITCH'},{no:'SCENE 02',name:'VOICE',line:'A METHOD, NOT A MOOD'}];
+  function pad(n){ return (n<10?'0':'')+n; }
+  function setAct(a){
+    takes.forEach(function(b,i){ b.classList.toggle('on', i===a); });
+    if(sceneEl) sceneEl.textContent=SCENES[a].no+' — '+SCENES[a].name;
+    if(kicker) kicker.innerHTML='<b>'+SCENES[a].no+'</b> '+SCENES[a].line;
+    ghosts.forEach(function(g,i){ g.classList.toggle('on', i===a); });
+    stills.forEach(function(s,i){ s.classList.toggle('on', i===a? (a===0?0: (a===1?1:2)) : i); });
+  }
+  // rail clicks
+  if(!root.dataset.mfReady){
+    root.dataset.mfReady='1';
+    takes.forEach(function(b){
+      b.addEventListener('click',function(){
+        var i=parseInt(b.getAttribute('data-go'),10)||0;
+        var targetProgress = i===0 ? 0.12 : 0.58;
+        var total=Math.max(1,root.offsetHeight-innerHeight);
+        var y=root.getBoundingClientRect().top+scrollY;
+        scrollTo({top:y+total*targetProgress,behavior:'smooth'});
+      });
+    });
+    if(hint){
+      window.addEventListener('scroll',function(){ hint.style.opacity = (scrollY> (root.getBoundingClientRect().top+scrollY+10)) ? '0':'1'; },{passive:true});
+    }
+  }
+  // reduced motion / mobile: static, all visible
+  if(rm.matches || mqMobile.matches){
+    root.classList.add('mf-static');
+    paras.forEach(function(p){ [].slice.call(p.querySelectorAll('.w')).forEach(function(w){ w.style.opacity='1'; }); });
+    stills.forEach(function(s,i){ if(i===0) s.classList.add('on'); s.style.opacity=i===0?'.45':''; });
+    frames.forEach(function(f,i){ if(i===0) f.classList.add('on'); });
+    ghosts.forEach(function(g,i){ if(i===0) g.classList.add('on'); });
+    takes.forEach(function(b,i){ b.classList.toggle('on', i===0); });
+    if(sceneEl) sceneEl.textContent=SCENES[0].no+' — '+SCENES[0].name;
+    if(kicker) kicker.innerHTML='<b>'+SCENES[0].no+'</b> '+SCENES[0].line;
+    if(bar) bar.style.transform='scaleX(0)';
+    if(tcEl) tcEl.textContent='00:00:00:00';
+    return;
+  }
+  // desktop animated
+  root.classList.remove('mf-static');
+  // initial
+  gsap.set(words1,{opacity:.13});
+  gsap.set(words2,{opacity:.13});
+  gsap.set(stills,{opacity:0});
+  if(stills[0]) gsap.set(stills[0],{opacity:.45});
+  gsap.set(frames,{opacity:.55});
+  if(frames[0]) gsap.set(frames[0],{opacity:1});
+  gsap.set(ghosts,{opacity:0});
+  if(ghosts[0]) gsap.set(ghosts[0],{opacity:1});
+  if(bar) gsap.set(bar,{scaleX:0,transformOrigin:'left'});
+  var tl=gsap.timeline({scrollTrigger:{trigger:root,start:'top top',end:'bottom bottom',scrub:0.5,pin:root.querySelector('.mf-stage'),anticipatePin:1,
+    onUpdate:function(self){
+      var pr=self.progress;
+      // timecode
+      var t=pr*90;
+      var tc='00:'+pad(Math.floor(t/60))+':'+pad(Math.floor(t%60))+':'+pad(Math.floor((t%1)*24));
+      if(tcEl) tcEl.textContent=tc;
+      // act switch
+      var a = pr < 0.46 ? 0 : 1;
+      if((root.dataset.act||'')!==String(a)){
+        root.dataset.act=String(a);
+        setAct(a);
+      }
+      // background stage index
+      var st = pr<0.46?0:(pr<0.88?1:2);
+      stills.forEach(function(s,i){ s.classList.toggle('on', i===st); });
+      frames.forEach(function(f,i){ f.classList.toggle('on', i===st); });
+      // hint
+      if(hint) hint.style.opacity = pr>0.02?'0':'1';
+    }
+  }});
+  // word fills
+  tl.to(words1,{opacity:1,stagger:{each:0.012},ease:'none'},0.06);
+  tl.to(words2,{opacity:1,stagger:{each:0.012},ease:'none'},0.5);
+  // background crossfades
+  tl.set(stills[0],{opacity:0},0.4);
+  tl.set(stills[1],{opacity:.45},0.4);
+  tl.set(stills[1],{opacity:0},0.84);
+  tl.set(stills[2],{opacity:.4},0.84);
+  // ghost crossfade
+  tl.set(ghosts[0],{opacity:0},0.4);
+  tl.set(ghosts[1],{opacity:1},0.4);
+  // macro zoom on stills
+  tl.fromTo(stills,{scale:1.06},{scale:1.16,ease:'none'},0);
+  // progress bar
+  if(bar) tl.fromTo(bar,{scaleX:0},{scaleX:1,ease:'none'},0);
+  // filmstrip frames opacity already
+  // refresh
+  if(window.ScrollTrigger) ScrollTrigger.refresh();
+}
+window.setupManifesto=setupManifesto;
+
 var GRID_LIMIT=6, gridExpanded=false, __wio=null;
 function renderWorks(){
   try{
@@ -860,8 +1178,10 @@ Promise.all([loadSiteData(),loadEditor()]).then(function(){
   try{ initCounters(); }catch(e){}
   try{ fitSeqWords(); }catch(e){}
   try{ renderWorks(); }catch(e){}
+  try{ setupManifesto(); }catch(e){}
   try{ injectSchema(); }catch(e){}
   try{ applyEditor(window.EDITOR||{}); }catch(e){}
+  try{ setupManifesto(); }catch(e){}
   try{
     document.querySelectorAll('[data-block][data-type="project"]').forEach(function(n){
       var id=n.getAttribute('data-eid'), found=null;

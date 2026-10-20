@@ -266,7 +266,6 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .mf-copy{max-width:100%}
 .mf-kicker{font-size:.48rem;letter-spacing:.26em;margin-bottom:.8rem}
 .mf-p{font-size:clamp(1.12rem,4.5vw,1.36rem);line-height:1.62}
-.mf-p .w{opacity:1!important}
 .mf-p+.mf-p{margin-top:1em}
 .mf-still.on{opacity:.34}
 .mf-rail{padding:0 1.2rem .9rem;gap:.7rem;font-size:.44rem;letter-spacing:.2em;grid-template-columns:auto minmax(0,1fr)}
@@ -857,7 +856,7 @@ function setupManifesto(){
     }
   }
   // reduced motion / mobile: static, all visible
-  if(rm.matches || mqMobile.matches){
+  if(rm.matches){
     root.classList.add('mf-static');
     paras.forEach(function(p){ [].slice.call(p.querySelectorAll('.w')).forEach(function(w){ w.style.opacity='1'; }); });
     stills.forEach(function(s,i){ if(i===0) s.classList.add('on'); s.style.opacity=i===0?'.45':''; });

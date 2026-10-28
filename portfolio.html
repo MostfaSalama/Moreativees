@@ -169,11 +169,13 @@ function paintPath(){
   else if(curCat&&curCat!=='All') document.title=String(curCat).toUpperCase()+' — Portfolio | MOREATIVE';
   else document.title='Portfolio — MOREATIVE Creative Studio';
 }
-function syncFromUrl(){
+function syncFromUrl(initial){
   var r=parsePath();
   if(!r.valid){ setPath(BASE,'replace'); }
   var cat='All';
-  if(r.cat){ for(var i=0;i<CATS.length;i++){ if(slugify(CATS[i])===r.cat){ cat=CATS[i]; break; } } }
+  // a shared project link should show the full grid behind it, not a filtered one
+  var skipCat=(initial===true&&r.proj);
+  if(r.cat&&!skipCat){ for(var i=0;i<CATS.length;i++){ if(slugify(CATS[i])===r.cat){ cat=CATS[i]; break; } } }
   if(cat!==curCat){ curCat=cat; renderFilters(); renderGrid(true); }
   var idx=-1;
   if(r.proj){ for(var j=0;j<PROJECTS.length;j++){ if(slugify(PROJECTS[j].id||PROJECTS[j].t)===r.proj){ idx=j; break; } } }
@@ -185,7 +187,7 @@ function syncFromUrl(){
     if(r.proj){ setPath(urlFor(curCat),'replace'); }
   }
 }
-window.addEventListener('popstate',function(){ syncFromUrl(); });
+window.addEventListener('popstate',function(){ syncFromUrl(false); });
 function absUrl(u){
   if(!u) return u;
   var s=String(u);
@@ -337,7 +339,7 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight') stepBehance(1);
   if(e.key==='ArrowLeft') stepBehance(-1);
 });
-load().then(function(){ syncFromUrl(); },function(){ syncFromUrl(); });
+load().then(function(){ syncFromUrl(true); },function(){ syncFromUrl(true); });
 })();
 </script>
 <script>

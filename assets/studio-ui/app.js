@@ -133,7 +133,10 @@
       BASE_ED = clone(ED);
       paintState();
     }).catch(function (e) {
-      toast('Could not load site data: ' + e.message, true);
+      $('#gate').hidden = false;
+      $('#app').hidden = true;
+      $('#gateErr').textContent = 'Could not load site data (' + (e && e.message ? e.message : 'network') + '). Reload the page.';
+      toast('Could not load site data: ' + (e && e.message ? e.message : 'network'), true);
     });
   }
 

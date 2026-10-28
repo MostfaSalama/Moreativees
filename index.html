@@ -10,11 +10,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="MOREATIVE" />
 <meta property="og:title" content="MOREATIVE — Creative Studio" />
-<meta property="og:description" content="Bold stories, told loud. Branding, 3D, print, social and full-scale projects." />
+<meta property="og:description" content="Creative studio crafting bold stories: Branding, 3D, print, social and full-scale projects." />
 <meta property="og:image" content="https://moreative.com/assets/hero-cover.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="MOREATIVE — Creative Studio" />
-<meta name="twitter:description" content="Bold stories, told loud. Branding, 3D, print, social and full-scale projects." />
+<meta name="twitter:description" content="Creative studio crafting bold stories: Branding, 3D, print, social and full-scale projects." />
 <meta name="twitter:image" content="https://moreative.com/assets/hero-cover.jpg" />
 <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -145,7 +145,7 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .svc-i{flex:none;font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.4)}
 .svc-list b{font-family:'Space Grotesk',sans-serif;font-size:1.02rem;display:block}
 .svc-list p{color:rgba(255,255,255,.6);font-size:.9rem;margin-top:.15rem}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1rem}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1rem}
 .stat{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:1.2rem;padding:1.1rem .6rem;text-align:center;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .stat-n{display:block;font-family:'Archivo Black',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1}
 .stat-l{display:block;margin-top:.4rem;font-size:.66rem;letter-spacing:.2em;color:rgba(255,255,255,.6)}
@@ -156,8 +156,9 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .stats-wide:hover .cc-base,.stats-wide.show-flags .cc-base{opacity:0;transform:scale(.9)}
 .stats-wide:hover,.stats-wide.show-flags{min-height:0;aspect-ratio:3/1}
 .flags{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s}
-.stats-wide:hover .flags,.stats-wide.show-flags .flags{opacity:1;pointer-events:auto}
-.flag{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;overflow:hidden;border-radius:1.1rem;background:#0a0a0a}
+.flags:hover .flag,.flags.show-flags .flag{opacity:1}
+.flag:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,255,255,.08)}
+.flag{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:.65rem;padding:.4rem .7rem;color:rgba(255,255,255,.85);font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.15em;transition:background .3s,border-color .3s,transform .3s,box-shadow .4s}
 .flag.on{opacity:1}
 .flag img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .flag em{position:absolute;left:.9rem;bottom:.7rem;z-index:1;font-style:normal;font-size:.62rem;letter-spacing:.22em;color:#fff;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);padding:.35rem .8rem;border-radius:999px}
@@ -301,6 +302,12 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .behance-nav button small{position:relative;z-index:1;display:block;padding:0 1.1rem;font-size:.7rem;letter-spacing:.25em;color:rgba(255,255,255,.7)}
 @media(max-width:640px){.behance-nav{grid-template-columns:1fr}.b-title{display:none}}
 .nav-logo{height:30px;width:auto;display:block}
+.nav-brand{position:relative;display:flex;align-items:center;justify-content:center;min-height:30px}
+.nav-brand .nav-logo{transition:opacity .45s ease,transform .45s ease}
+.nav-brand.is-sec .nav-logo{opacity:0;transform:scale(.86)}
+.nav-sec{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#fff;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none}
+nav.search-on .nav-logo{opacity:0 !important}
+nav.search-on .nav-sec{opacity:0 !important}
 .nav-ico{width:42px;height:42px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#f5f5f5;cursor:pointer;transition:background .3s,transform .3s,box-shadow .3s,border-color .3s}
 .nav-ico:hover{background:rgba(255,255,255,.14)}
 .nav-ico svg{width:18px;height:18px}
@@ -347,10 +354,15 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 #giant .giant-sub{font-size:.16em;letter-spacing:.22em}
 nav>div{padding:.8rem 1rem !important}
 .nav-logo{height:24px}
+.nav-brand{min-height:24px}
+.nav-sec{font-size:.585rem;letter-spacing:.16em}
 .hero-seq{margin:12vh auto 0}
 .seq-final{font-size:clamp(.9rem,4.2vw,1.05rem) !important;margin:4vh auto 0;text-align:center}
 
 #studio{padding:0 !important}
+.stats-grid{grid-template-columns:repeat(2,1fr) !important;gap:1rem 1.1rem !important}
+.stats-grid .stat-l{letter-spacing:.14em;font-size:.6rem}
+nav.fixed{backdrop-filter:none !important;-webkit-backdrop-filter:none !important;background:rgba(5,5,5,.94)}
 #studio .glass{height:15rem;font-size:3.5rem}
 .studio-logo{width:92px}
 .svc-list li{padding:.85rem .15rem}
@@ -375,7 +387,7 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 <div id="cursor-dot"></div><div id="cursor-ring"></div>
 <nav class="fixed top-0 w-full z-50 backdrop-blur bg-black/60 border-b border-white/10"><div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
 <a href="https://instagram.com/moreatives" target="_blank" rel="noopener" aria-label="Instagram — @moreatives" class="nav-ico ig-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-<a href="#" aria-label="Moreative home" class="absolute left-1/2 -translate-x-1/2 flex items-center"><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"></a>
+<a href="#" aria-label="Moreative home" class="nav-brand absolute left-1/2 -translate-x-1/2 flex items-center"><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"><span class="nav-sec" aria-hidden="true"></span></a>
 <div class="search-wrap" id="search-wrap">
 <input id="search-input" type="text" placeholder="Search projects..." autocomplete="off" aria-label="Search projects">
 <button class="nav-ico" id="search-toggle" aria-label="Search projects"><svg class="s-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg><span class="s-x">✕</span></button>
@@ -433,100 +445,166 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 </div>
 
 <section id="studio" data-sec="studio">
-<div class="cr" id="cr">
-<div class="cr-stage">
-<div class="cr-bg" aria-hidden="true">
-<img class="cr-still on" src="assets/design-01-coffee-beans.jpg?v=2" alt="">
-<img class="cr-still" src="assets/design-02-flammer.jpg?v=2" alt="">
-<img class="cr-still" src="assets/design-03-kassy.jpg?v=2" alt="">
-<img class="cr-still" src="assets/design-04-architecture.jpg?v=2" alt="">
-<img class="cr-still" src="assets/design-05-billboard.jpg?v=2" alt="">
-<span class="cr-vig"></span><span class="cr-grain"></span>
-</div>
-<div class="cr-lines" aria-hidden="true"></div>
-<div class="cr-wipe" aria-hidden="true"></div>
-<div class="cr-hud">
-<div class="cr-file"><b>STUDIO / 05 RULES</b><span class="cr-scene" id="cr-scene">RULE 01 — REFUSE THE COPY</span></div>
-<div class="cr-tc"><span class="cr-rec"></span><span id="cr-tc">00:00:00:00</span><span>05 SCENES</span><span class="cr-build">BUILD 2026-10-21</span></div>
-</div>
-<div class="cr-track" id="cr-track">
-<article class="cr-rule" data-rule="0">
-<span class="cr-ghost" aria-hidden="true">REFUSAL</span>
-<span class="cr-num">01</span>
-<h3 class="cr-line">REFUSE THE COPY</h3>
-<p class="cr-sub">Never make what’s already been made. No “similar to.” No “good enough.”</p>
-</article>
-<article class="cr-rule" data-rule="1">
-<span class="cr-ghost" aria-hidden="true">ZERO</span>
-<span class="cr-num">02</span>
-<h3 class="cr-line">REBUILD FROM ZERO</h3>
-<p class="cr-sub">Every brief stripped down and rebuilt until it’s undeniable.</p>
-</article>
-<article class="cr-rule" data-rule="2">
-<span class="cr-ghost" aria-hidden="true">VOICE</span>
-<span class="cr-num">03</span>
-<h3 class="cr-line">KILL THE JARGON</h3>
-<p class="cr-sub">No bloated process. No back-and-forth. Plain words, sharp work.</p>
-</article>
-<article class="cr-rule" data-rule="3">
-<span class="cr-ghost" aria-hidden="true">WORTH</span>
-<span class="cr-num">04</span>
-<h3 class="cr-line">WORTH MORE THAN COST</h3>
-<p class="cr-sub">Every project has to earn its budget. No exceptions.</p>
-</article>
-<article class="cr-rule" data-rule="4">
-<span class="cr-ghost" aria-hidden="true">PROOF</span>
-<span class="cr-num">05</span>
-<h3 class="cr-line">THE WORK SPEAKS</h3>
-<p class="cr-sub">Then we talk. Fast, clean, straight to the point.</p>
-</article>
-</div>
-<div class="cr-rail">
-<span class="cr-hint" id="cr-hint">SCROLL — RULES MOVE RIGHT → LEFT</span>
-<div class="cr-bar" aria-hidden="true"><i id="cr-bar"></i></div>
-<div class="cr-dots" id="cr-dots">
-<button type="button" class="on" data-go="0"><b>01</b><span>REFUSE THE COPY</span></button>
-<button type="button" data-go="1"><b>02</b><span>REBUILD FROM ZERO</span></button>
-<button type="button" data-go="2"><b>03</b><span>KILL THE JARGON</span></button>
-<button type="button" data-go="3"><b>04</b><span>WORTH MORE THAN COST</span></button>
-<button type="button" data-go="4"><b>05</b><span>THE WORK SPEAKS</span></button>
-</div>
-</div>
-</div>
-</div>
-
-<div class="st-roll" id="studio-services">
-<div class="st-roll-head">
-<p class="svc-line">IDENTITY • 3D • PRINT • SOCIAL • FULL SCALE PROJECTS</p>
-<span>WHAT WE DO / 05</span>
-</div>
-<div class="st-roll-view">
-<div class="st-roll-track">
-<div class="st-roll-group">
-<span>Logo &amp; Brand Identity</span><i>+</i><span>3D Modeling</span><i>+</i><span>Print Design</span><i>+</i><span>Social Campaigns</span><i>+</i><span>Full Project Management</span><i>+</i>
-</div>
-<div class="st-roll-group" aria-hidden="true">
-<span>Logo &amp; Brand Identity</span><i>+</i><span>3D Modeling</span><i>+</i><span>Print Design</span><i>+</i><span>Social Campaigns</span><i>+</i><span>Full Project Management</span><i>+</i>
-</div>
-</div>
-</div>
-</div>
-
 <div class="st-band" id="studio-numbers">
-<div class="st-board">
-<div class="st-side">
-<div data-reveal class="glass studio-logo-card rounded-3xl flex items-center justify-center"><div class="studio-shine"></div><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="studio-logo"></div>
-<div data-reveal class="stats-grid"><div class="stat"><span class="stat-n" data-count="50" data-dur="5.5">0+</span><span class="stat-l">CLIENTS</span></div><div class="stat"><span class="stat-n" data-count="85" data-dur="5.5">0+</span><span class="stat-l">PROJECTS</span></div><div class="stat"><span class="stat-n" data-count="5" data-dur="2">0+</span><span class="stat-l">YEARS EXPERIENCE</span></div></div>
-<div data-reveal class="stat stats-wide" title="Hover to view flags"><span class="cc-base"><span class="stat-n" data-count="7" data-dur="2.7">0+</span><span class="stat-l">COUNTRIES SERVED</span></span><div class="flags"><span class="flag"><img loading="lazy" src="assets/flags/flag-usa.png" alt="USA"><em>USA</em><i>01 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-germany.png" alt="Germany"><em>GERMANY</em><i>02 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-turkey.png" alt="Turkey"><em>TURKEY</em><i>03 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-saudi.png" alt="Saudi Arabia"><em>SAUDI</em><i>04 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-egypt.png" alt="Egypt"><em>EGYPT</em><i>05 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-jordan.png" alt="Jordan"><em>JORDAN</em><i>06 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-iraq.png" alt="Iraq"><em>IRAQ</em><i>07 / 08</i></span><span class="flag"><img loading="lazy" src="assets/flags/flag-syria.png" alt="Syria"><em>SYRIA</em><i>08 / 08</i></span></div></div>
+<div class="st-board" style="display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:center;max-width:1200px;margin:0 auto;padding:clamp(5rem,10vh,8rem) clamp(2rem,6vw,4rem);">
+
+<!-- Stats Grid -->
+<div data-reveal class="stats-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;align-items:center;border-top:1px solid rgba(255,255,255,.1);padding-top:2rem;">
+  <div class="stat"><span class="stat-n" data-count="50" data-dur="5.5">50+</span><span class="stat-l">CLIENTS</span></div>
+  <div class="stat"><span class="stat-n" data-count="85" data-dur="5.5">85+</span><span class="stat-l">PROJECTS</span></div>
+  <div class="stat"><span class="stat-n" data-count="5" data-dur="2">5+</span><span class="stat-l">YEARS EXPERIENCE</span></div>
+  <div class="stat"><span class="stat-n" data-count="7" data-dur="2.7">7+</span><span class="stat-l">COUNTRIES SERVED</span></div>
 </div>
-<div data-reveal class="st-copy">
-<p class="st-kicker">THE STUDIO / EST. 2021</p>
-<h2 class="st-title">BOLD STORIES, TOLD LOUD.</h2>
-<p class="st-note">MOREATIVE — CAIRO / REMOTE — WORLDWIDE</p>
+
+<!-- Flags -->
+<div data-reveal class="flags" style="display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08);">
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-usa.png" alt="USA"><em>USA</em><i>01 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-germany.png" alt="Germany"><em>GERMANY</em><i>02 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-turkey.png" alt="Turkey"><em>TURKEY</em><i>03 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-saudi.png" alt="Saudi Arabia"><em>SAUDI</em><i>04 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-egypt.png" alt="Egypt"><em>EGYPT</em><i>05 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-jordan.png" alt="Jordan"><em>JORDAN</em><i>06 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-iraq.png" alt="Iraq"><em>IRAQ</em><i>07 / 08</i></span>
+  <span class="flag"><img loading="lazy" src="assets/flags/flag-syria.png" alt="Syria"><em>SYRIA</em><i>08 / 08</i></span>
 </div>
+
+
 </div>
 </div>
 </section>
+
+<!-- Studio Description & Services — pinned luxury phases + horizontal services -->
+<div id="studio-desc-track" data-sec="studio-desc">
+<section id="studio-desc">
+    <style>
+    #studio-desc-track{position:relative;background:#050505;}
+    #studio-desc{position:relative;height:100vh;min-height:540px;background:#050505;overflow:hidden;}
+    #studio-desc::before{content:"";position:absolute;inset:0;background:radial-gradient(52% 62% at 50% 48%,rgba(255,255,255,.055),transparent 72%);pointer-events:none;}
+    #studio-desc::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);pointer-events:none;}
+    .studio-phases{position:absolute;inset:0;z-index:2;}
+    .studio-phase{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 clamp(1.4rem,7vw,7rem);}
+    .studio-phase[data-phase="2"]{opacity:0;visibility:hidden;}
+    .studio-lead{font-family:'Archivo Black',sans-serif;font-weight:400;font-size:clamp(1.8rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.035em;text-transform:uppercase;color:#fff;margin:0;max-width:24ch;text-wrap:balance;}
+    .studio-lead--sm{font-size:clamp(1.55rem,3vw,2.4rem);max-width:26ch;}
+    .studio-sub{font-family:'Space Grotesk',sans-serif;font-size:clamp(.92rem,1.3vw,1.05rem);line-height:1.75;color:rgba(255,255,255,.52);margin:1.9rem 0 0;max-width:52ch;text-wrap:pretty;}
+    .studio-kicker{display:inline-block;font-family:'Archivo Black',sans-serif;font-size:clamp(.78rem,1.2vw,.98rem);letter-spacing:.14em;text-transform:uppercase;color:#fff;margin:2.4rem 0 0;padding-top:1.15rem;border-top:1px solid rgba(255,255,255,.2);}
+    .studio-cards{position:absolute;left:0;top:0;bottom:0;z-index:3;display:flex;align-items:center;gap:clamp(1.2rem,2.5vw,2.2rem);padding:0 clamp(1.6rem,6vw,6rem);width:max-content;will-change:transform;}
+    .studio-service{position:relative;flex:0 0 auto;width:min(76vw,390px);min-height:min(58vh,460px);display:flex;flex-direction:column;padding:clamp(1.5rem,2.4vw,2.1rem);border-radius:1.35rem;border:1px solid rgba(255,255,255,.14);background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.015));overflow:hidden;transition:border-color .45s ease,background .45s ease,box-shadow .45s ease;}
+    .studio-service::after{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.1),transparent 60%);opacity:0;transition:opacity .5s ease;pointer-events:none;}
+    .studio-service.in:hover{border-color:rgba(255,255,255,.42);background:linear-gradient(165deg,rgba(255,255,255,.1),rgba(255,255,255,.03));box-shadow:0 26px 60px rgba(0,0,0,.55);}
+    .studio-service.in:hover::after{opacity:1;}
+    .ss-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+    .ss-num{font-family:'Archivo Black',sans-serif;font-size:clamp(1.9rem,3vw,2.6rem);line-height:.85;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.38);transition:-webkit-text-stroke-color .45s ease;}
+    .studio-service.in:hover .ss-num{-webkit-text-stroke-color:rgba(255,255,255,.85);}
+    .ss-arrow{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;line-height:1;color:rgba(255,255,255,.45);opacity:0;transform:translate(-6px,6px);transition:opacity .5s ease .15s,transform .5s cubic-bezier(.22,1,.36,1) .15s,color .4s ease;}
+    .ss-line{height:1px;background:rgba(255,255,255,.16);margin:1.3rem 0 0;transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.22,1,.36,1) .05s;}
+    .ss-body{margin-top:auto;opacity:1;transform:none;}
+    .studio-cards.js-ready .studio-service{opacity:0;transform:translate3d(0,34px,0) scale(.97);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),border-color .45s ease,background .45s ease,box-shadow .45s ease;}
+    .studio-cards.js-ready .studio-service.in{opacity:1;transform:translate3d(0,0,0) scale(1);}
+    .studio-cards.js-ready .studio-service.in .ss-arrow{opacity:1;transform:translate(0,0);}
+    .studio-service.in:hover .ss-arrow{color:#fff;transform:translate(4px,-4px);}
+    .studio-cards.js-ready .studio-service.in .ss-line{transform:scaleX(1);}
+    .studio-cards.js-ready .ss-body{opacity:0;transform:translateY(16px);transition:opacity .6s ease .1s,transform .6s cubic-bezier(.22,1,.36,1) .1s;}
+    .studio-cards.js-ready .studio-service.in .ss-body{opacity:1;transform:none;}
+    .ss-tag{display:block;font-family:'Space Grotesk',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.85rem;}
+    .studio-service h3{font-family:'Archivo Black',sans-serif;font-size:clamp(1.3rem,2vw,1.75rem);line-height:1.02;letter-spacing:-.03em;color:#fff;margin:0 0 .7rem;}
+    .studio-service p{font-family:'Space Grotesk',sans-serif;font-size:.92rem;line-height:1.6;color:rgba(255,255,255,.52);margin:0;max-width:28ch;}
+    .studio-progress{position:absolute;left:clamp(1.6rem,6vw,6rem);right:clamp(1.6rem,6vw,6rem);bottom:clamp(1.5rem,3vw,2.6rem);height:1px;background:rgba(255,255,255,.09);z-index:4;pointer-events:none;}
+    .studio-progress span{display:block;height:100%;width:100%;background:linear-gradient(90deg,rgba(255,255,255,.22),rgba(255,255,255,.7));transform:scaleX(0);transform-origin:0 50%;}
+    @media (max-width:720px){
+      #studio-desc{height:100vh;height:100svh;min-height:0;}
+      .studio-phase{padding:0 1.3rem;}
+      .studio-lead{font-size:clamp(1.55rem,6.8vw,2.5rem);line-height:1.05;max-width:19ch;}
+      .studio-lead--sm{font-size:clamp(1.4rem,5.6vw,2.1rem);max-width:21ch;}
+      .studio-sub{font-size:.9rem;line-height:1.65;max-width:33ch;margin-top:1.35rem;}
+      .studio-kicker{font-size:.7rem;letter-spacing:.12em;margin-top:1.8rem;padding-top:.9rem;}
+      .studio-cards{gap:.85rem;padding:0 1.2rem;}
+      .studio-service{width:78vw;max-width:340px;min-height:min(54svh,430px);padding:1.3rem;border-radius:1.15rem;}
+      .studio-service h3{font-size:clamp(1.12rem,4.4vw,1.45rem);}
+      .studio-service p{font-size:.86rem;line-height:1.55;max-width:25ch;}
+      .ss-num{font-size:2rem;}
+      .ss-tag{font-size:.54rem;letter-spacing:.28em;margin-bottom:.7rem;}
+      .studio-progress{left:1.2rem;right:1.2rem;bottom:1.2rem;}
+    }
+    @media (max-height:560px){
+      #studio-desc{min-height:0;height:100vh;}
+      .studio-lead{font-size:clamp(1.2rem,5vh,2rem);line-height:1.04;max-width:24ch;}
+      .studio-lead--sm{font-size:clamp(1.05rem,4vh,1.7rem);}
+      .studio-sub{font-size:.82rem;line-height:1.6;margin-top:.9rem;max-width:46ch;}
+      .studio-kicker{margin-top:1.2rem;padding-top:.7rem;font-size:.66rem;}
+      .studio-service{min-height:min(64vh,300px);}
+      .studio-progress{bottom:.9rem;}
+    }
+  </style>
+  <div class="studio-phases">
+    <article class="studio-phase" data-phase="1">
+      <p class="studio-lead">Moreative exists on one refusal: never make what’s already been made.</p>
+      <p class="studio-sub">No “similar to.” No “good enough.” Every brief is stripped down and rebuilt from zero, pushed until it’s undeniable.</p>
+      <p class="studio-kicker">The work speaks first.</p>
+    </article>
+
+    <article class="studio-phase" data-phase="2">
+      <p class="studio-lead studio-lead--sm">Every project has to be worth more than what it costs.</p>
+      <p class="studio-sub">No bloated process, no jargon, no back and forth. Tell us what you need. We’ll nail it:</p>
+      <p class="studio-kicker">Fast, clean, straight to the point.</p>
+    </article>
+  </div>
+
+  <div class="studio-cards">
+    <article class="studio-service">
+      <div class="ss-top"><span class="ss-num">01</span><span class="ss-arrow">↗</span></div>
+      <div class="ss-line"></div>
+      <div class="ss-body">
+        <span class="ss-tag">Brand</span>
+        <h3>Logo &amp; Brand Identity</h3>
+        <p>the foundation everything else stands on.</p>
+      </div>
+    </article>
+
+    <article class="studio-service">
+      <div class="ss-top"><span class="ss-num">02</span><span class="ss-arrow">↗</span></div>
+      <div class="ss-line"></div>
+      <div class="ss-body">
+        <span class="ss-tag">3D</span>
+        <h3>3D Modeling</h3>
+        <p>sculpted in Blender, built to move.</p>
+      </div>
+    </article>
+
+    <article class="studio-service">
+      <div class="ss-top"><span class="ss-num">03</span><span class="ss-arrow">↗</span></div>
+      <div class="ss-line"></div>
+      <div class="ss-body">
+        <span class="ss-tag">Print</span>
+        <h3>Print Design</h3>
+        <p>precision to the pixel, zero room for error.</p>
+      </div>
+    </article>
+
+    <article class="studio-service">
+      <div class="ss-top"><span class="ss-num">04</span><span class="ss-arrow">↗</span></div>
+      <div class="ss-line"></div>
+      <div class="ss-body">
+        <span class="ss-tag">Social</span>
+        <h3>Social Campaigns</h3>
+        <p>content that stops the scroll, on every platform.</p>
+      </div>
+    </article>
+
+    <article class="studio-service">
+      <div class="ss-top"><span class="ss-num">05</span><span class="ss-arrow">↗</span></div>
+      <div class="ss-line"></div>
+      <div class="ss-body">
+        <span class="ss-tag">Management</span>
+        <h3>Full Project Management</h3>
+        <p>from first idea to opening night, for brands, events, and everything between.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="studio-progress"><span></span></div>
+</section>
+</div>
 
 <section id="grid" data-sec="grid">
 <div class="grid-head"><h2 class="pf-title" id="pf-title">PORTFOLIO</h2></div>
@@ -1310,11 +1388,227 @@ if(window.ScrollTrigger){ try{ ScrollTrigger.refresh(); }catch(e){} }
 })();
 </script>
 <script>
+/* Header wordmark — the logo morphs into the name of the section you're in */
+(function(){
+  var brand = document.querySelector('.nav-brand');
+  var label = brand && brand.querySelector('.nav-sec');
+  if (!brand || !label) return;
+  var current = '';
+  var gsp = window.gsap;
+  if (gsp) { gsp.set(label, { xPercent: -50, yPercent: -50 }); }
+  function apply(text){
+    if (text === current) return;
+    current = text;
+    brand.classList.toggle('is-sec', !!text);
+    if (!text) {
+      if (gsp) {
+        gsp.killTweensOf(label);
+        gsp.to(label, { autoAlpha: 0, y: -4, xPercent: -50, yPercent: -50, duration: .26, ease: 'power2.in',
+          onComplete: function(){ label.textContent = ''; } });
+      } else {
+        label.textContent = '';
+        label.style.opacity = 0;
+        label.style.visibility = 'hidden';
+      }
+      return;
+    }
+    label.textContent = text;
+    if (gsp) {
+      try {
+        gsp.fromTo(label, { autoAlpha: 0, y: 6, xPercent: -50, yPercent: -50 },
+          { autoAlpha: 1, y: 0, xPercent: -50, yPercent: -50, duration: .42, ease: 'power2.out', overwrite: true });
+      } catch(e) { label.style.opacity = 1; label.style.visibility = 'inherit'; }
+    } else {
+      label.style.opacity = 1;
+      label.style.visibility = 'inherit';
+    }
+  }
+  window.__navApply = apply;
+  // called from the studio-desc timeline: services → the line that follows them
+  window.__navStudio = function(p, a, b){
+    apply(p >= b ? 'straight to the point' : (p >= a ? 'services' : 'about us'));
+  };
+  if (!window.ScrollTrigger) return;
+  var marks = [];
+  var pinST = null;
+  var lastMeasure = 0;
+  function topOf(sel){
+    var el = document.querySelector(sel);
+    return el ? el.getBoundingClientRect().top + window.scrollY : Infinity;
+  }
+  function measure(){
+    lastMeasure = Date.now();
+    var vh = window.innerHeight;
+    if (!pinST) findPin();
+    var gridY = topOf('#grid') - vh * 0.58;
+    var pinEndY = pinST ? pinST.end : gridY;
+    marks = [
+      { y: topOf('#studio') - vh * 0.58, text: 'about us' },
+      { y: Math.min(pinEndY, gridY), text: 'straight to the point' },
+      { y: gridY, text: 'portfolio' },
+      { y: topOf('#outro') - vh * 0.55, text: 'contact' }
+    ];
+  }
+  function findPin(){
+    pinST = null;
+    ScrollTrigger.getAll().forEach(function(s){
+      if (s.pin && s.trigger && s.trigger.id === 'studio-desc') pinST = s;
+    });
+  }
+  function sync(){
+    if (!pinST) findPin();
+    if (Date.now() - lastMeasure > 350) measure();
+    if (window.__navInPin() && window.__navPct) {
+      window.__navStudio(pinST.progress, window.__navPct.a, window.__navPct.b);
+      return;
+    }
+    var y = window.scrollY, text = '';
+    for (var i = 0; i < marks.length; i++) { if (y >= marks[i].y) text = marks[i].text; }
+    apply(text);
+  }
+  // geometric test: immune to stale isActive during scrub settle
+  window.__navInPin = function(){
+    if (!pinST) findPin();
+    if (!pinST) return false;
+    var y = window.scrollY;
+    return y >= pinST.start - 2 && y <= pinST.end + 2;
+  };
+  ScrollTrigger.create({
+    trigger: document.documentElement,
+    start: 0,
+    end: 'max',
+    onUpdate: sync,
+    onRefresh: function(){ measure(); sync(); }
+  });
+  ScrollTrigger.addEventListener('refresh', sync);
+  measure();
+  sync();
+  var navEl = document.querySelector('nav.fixed');
+  var searchWrap = document.getElementById('search-wrap');
+  if (navEl && searchWrap) {
+    var syncSearch = function(){ navEl.classList.toggle('search-on', searchWrap.classList.contains('open')); };
+    var toggleBtn = document.getElementById('search-toggle');
+    if (toggleBtn) toggleBtn.addEventListener('click', function(){ syncSearch(); setTimeout(syncSearch, 150); });
+    document.addEventListener('click', syncSearch);
+    document.addEventListener('keydown', syncSearch);
+  }
+  if (document.readyState !== 'complete') {
+    addEventListener('load', function(){ setTimeout(function(){ measure(); sync(); }, 120); });
+  } else {
+    setTimeout(function(){ measure(); sync(); }, 120);
+  }
+})();
+</script>
+<script>
 if (location.search.indexOf('studio=1') > -1) {
   var __es = document.createElement('script');
   __es.src = 'studio-bridge.js?v=' + Date.now();
   document.body.appendChild(__es);
 }
 </script>
-</body>
+<script>
+try {
+  if(typeof gsap!=='undefined' && typeof ScrollTrigger!=='undefined'){
+    gsap.registerPlugin(ScrollTrigger);
+    // Studio stats reveal using GSAP ScrollTrigger (skills pattern)
+    gsap.utils.toArray('.st-band .stat').forEach(function(el, i){
+      gsap.from(el, { y: 40, opacity: 0, duration: 0.8, ease: 'power3.out', delay: i*0.12, scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' } });
+    });
+    // Studio description — pinned choreography (desktop + mobile)
+    var studioTrack = document.getElementById('studio-desc-track');
+    var studioSection = document.getElementById('studio-desc');
+    var studioCards = document.querySelector('.studio-cards');
+    var studioPhase1 = document.querySelector('.studio-phase[data-phase="1"]');
+    var studioPhase2 = document.querySelector('.studio-phase[data-phase="2"]');
+    var studioPhases = document.querySelector('.studio-phases');
+    var studioBar = document.querySelector('.studio-progress span');
+    if (studioTrack && studioSection && studioCards && studioPhase1 && studioPhase2 && studioPhases && window.gsap && window.ScrollTrigger) {
+      // keep the pinned section stable when mobile browser bars show / hide
+      if (ScrollTrigger.isTouch) { ScrollTrigger.config({ ignoreMobileResize: true }); }
+      var sCards = gsap.utils.toArray('#studio-desc .studio-service');
+      var sOffsets = [];
+      var vh = function () { return window.innerHeight; };
+      var vw = function () { return window.innerWidth; };
+      var travel = function () { return Math.max(0, studioCards.scrollWidth - vw()); };
+      var isPhone = window.matchMedia('(max-width: 720px)').matches;
+      var cacheOffsets = function () {
+        sOffsets = sCards.map(function (c) { return c.offsetLeft; });
+      };
+      // reveal each card as it enters — no layout reads while scrolling
+      var reveal = function () {
+        var x = gsap.getProperty(studioCards, 'x') || 0;
+        var limit = vw() * 1.01;
+        for (var i = 0; i < sCards.length; i++) {
+          var on = (sOffsets[i] + x) < limit;
+          if (on !== sCards[i].__shown) {
+            sCards[i].__shown = on;
+            sCards[i].classList[on ? 'add' : 'remove']('in');
+          }
+        }
+      };
+      // entry — slow luxury fade of the description block while scrolling in
+      gsap.fromTo(studioPhases, { autoAlpha: 0, y: isPhone ? 32 : 46 }, {
+        autoAlpha: 1, y: 0, ease: 'power2.out',
+        scrollTrigger: { trigger: studioSection, start: 'top 70%', end: 'top 18%', scrub: 1 }
+      });
+      // phase 1 out → services across → phase 2 in (same fade language)
+      // positions are measured once so the timeline stays linear with the scroll
+      var V = vh();
+      var T = travel();
+      var cfg = isPhone
+        ? { hold: 0.55, out: 0.34, gapA: 0.10, card: 0.80, gapB: 0.06, fade: 0.28, gapC: 0.14, pin: 0.38, tail: 0.55 }
+        : { hold: 0.85, out: 0.42, gapA: 0.13, card: 1.00, gapB: 0.10, fade: 0.35, gapC: 0.15, pin: 0.50, tail: 0.70 };
+      var tOut = V * cfg.hold;
+      var cStart = tOut + V * cfg.out + V * cfg.gapA;
+      var cDur = T * cfg.card;
+      var cFade = cStart + cDur + V * cfg.gapB;
+      var p2Start = cFade + V * cfg.fade + V * cfg.gapC;
+      var total = p2Start + V * cfg.pin + V * cfg.tail;
+      window.__navPct = { a: cStart / total, b: p2Start / total };
+      var tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        onUpdate: function () {
+          reveal();
+          var p = tl.progress();
+          if (studioBar) studioBar.style.transform = 'scaleX(' + p + ')';
+          if (window.__navStudio && window.__navInPin && window.__navInPin()) {
+            window.__navStudio(p, window.__navPct.a, window.__navPct.b);
+          }
+        },
+        scrollTrigger: {
+          trigger: studioSection,
+          start: 'top top',
+          end: '+=' + total,
+          pin: true,
+          pinSpacing: true,
+          scrub: isPhone ? 0.5 : 0.7,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefresh: function () { cacheOffsets(); reveal(); }
+        }
+      });
+      tl.fromTo(studioPhase1, { autoAlpha: 1, y: 0 }, {
+          autoAlpha: 0, y: -40, duration: V * cfg.out, ease: 'power2.in'
+        }, tOut)
+        .fromTo(studioCards, { x: vw() }, {
+          x: function () { return -travel(); }, duration: cDur, ease: 'none'
+        }, cStart)
+        .to(studioCards, {
+          autoAlpha: 0, duration: V * cfg.fade, ease: 'power2.in'
+        }, cFade)
+        .fromTo(studioPhase2, { autoAlpha: 0, y: isPhone ? 34 : 46 }, {
+          autoAlpha: 1, y: 0, duration: V * cfg.pin, ease: 'power2.out'
+        }, p2Start)
+        .to({}, { duration: V * cfg.tail }, p2Start + V * cfg.pin);
+      studioCards.classList.add('js-ready');
+      cacheOffsets();
+      reveal();
+    }
+    // Glass shimmer
+    gsap.utils.toArray('.glash').forEach(function(el){
+      gsap.to(el, { rotationY: 360, duration: 12, repeat: -1, ease: 'none', scrollTrigger: { trigger: el, start: 'top 90%' } });
+    });
+  }
+} catch(e){ console.error('GSAP Skill Error:', e); }
+</script></body>
 </html>

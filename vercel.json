@@ -7,8 +7,8 @@
     { "source": "/archive.html", "destination": "/portfolio", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/portfolio/:cat/:proj", "destination": "/portfolio.html" },
-    { "source": "/portfolio/:cat", "destination": "/portfolio.html" }
+    { "source": "/portfolio/:cat/:proj", "destination": "/portfolio" },
+    { "source": "/portfolio/:cat", "destination": "/portfolio" }
   ],
   "headers": [
     {

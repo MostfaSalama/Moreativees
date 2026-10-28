@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#050505">
+<title>Studio — MOREATIVE</title>
+<link rel="icon" href="/assets/logo-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/studio-ui/app.css">
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- gate -->
+<div id="gate">
+  <div class="gatebox">
+    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
+    <p class="hint" id="gateHint">Enter the password to edit and publish the site.</p>
+
+    <label class="sr" for="pw">Password</label>
+    <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" spellcheck="false">
+    <button id="loginBtn" class="btn primary" type="button" style="width:100%">Sign in</button>
+    <div class="err" id="gateErr" role="alert"></div>
+
+    <div class="setup" hidden>
+      This page stays locked until it has a password.<br>
+      Vercel → Settings → Environment Variables → add
+      <code>STUDIO_PASSWORD</code> and <code>GITHUB_TOKEN</code>, then Redeploy.
+    </div>
+  </div>
+</div>
+
+<!-- ---------------------------------------------------------------- app -->
+<div id="app" hidden>
+  <header id="bar">
+    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
+    <nav class="tabs">
+      <button type="button" data-tab="projects">Projects</button>
+      <button type="button" data-tab="content">Content</button>
+      <button type="button" data-tab="sections">Sections</button>
+      <button type="button" data-tab="publish">Publish</button>
+    </nav>
+    <div class="sp"></div>
+    <div class="state" id="state"><i></i><span>Live</span></div>
+    <button id="previewBtn" class="btn" type="button">View site</button>
+    <button id="publishTop" class="btn primary" type="button">Publish</button>
+    <button id="outBtn" class="btn" type="button">Sign out</button>
+  </header>
+
+  <main>
+    <section class="tab" id="tab-projects"></section>
+    <section class="tab" id="tab-content"></section>
+    <section class="tab" id="tab-sections"></section>
+    <section class="tab" id="tab-publish"></section>
+  </main>
+</div>
+
+<!-- ---------------------------------------------------------------- sheet -->
+<div id="sheet" role="dialog" aria-modal="true" aria-label="Edit project">
+  <div class="sheetbox" id="sheetBox"></div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="/assets/studio-ui/app.js"></script>
+</body>
+</html>

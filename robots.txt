@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /studio
+Disallow: /studio.html
+Disallow: /api/
+Disallow: /preview-studio

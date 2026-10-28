@@ -2,6 +2,8 @@ data/*.bak
 studio/
 studio-bridge.js
 admin/
+preview-studio.html
+_t-*.html
 *.log
 .DS_Store
 Thumbs.db

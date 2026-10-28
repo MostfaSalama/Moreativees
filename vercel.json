@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/archive", "destination": "/portfolio", "permanent": true },
+    { "source": "/archive.html", "destination": "/portfolio", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/portfolio/:cat/:proj", "destination": "/portfolio.html" },
+    { "source": "/portfolio/:cat", "destination": "/portfolio.html" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -17,6 +25,14 @@
     },
     {
       "source": "/",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/portfolio",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/portfolio/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     },
     {

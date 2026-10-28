@@ -387,7 +387,7 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 <div id="cursor-dot"></div><div id="cursor-ring"></div>
 <nav class="fixed top-0 w-full z-50 backdrop-blur bg-black/60 border-b border-white/10"><div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
 <a href="https://instagram.com/moreatives" target="_blank" rel="noopener" aria-label="Instagram — @moreatives" class="nav-ico ig-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-<a href="#" aria-label="Moreative home" class="nav-brand absolute left-1/2 -translate-x-1/2 flex items-center"><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"><span class="nav-sec" aria-hidden="true"></span></a>
+<a href="/" aria-label="Moreative home" class="nav-brand absolute left-1/2 -translate-x-1/2 flex items-center"><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"><span class="nav-sec" aria-hidden="true"></span></a>
 <div class="search-wrap" id="search-wrap">
 <input id="search-input" type="text" placeholder="Search projects..." autocomplete="off" aria-label="Search projects">
 <button class="nav-ico" id="search-toggle" aria-label="Search projects"><svg class="s-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg><span class="s-x">✕</span></button>
@@ -609,7 +609,7 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 <section id="grid" data-sec="grid">
 <div class="grid-head"><h2 class="pf-title" id="pf-title">PORTFOLIO</h2></div>
 <div class="works-grid" id="works-grid"></div>
-<div class="more-wrap"><a class="more-btn" id="more-btn" style="display:none" href="archive.html">MORE CREATIVE <span class="more-arrow">→</span></a></div>
+<div class="more-wrap"><a class="more-btn" id="more-btn" style="display:none" href="/portfolio">MORE CREATIVE <span class="more-arrow">→</span></a></div>
 </section>
 
 <section id="outro" data-sec="outro">
@@ -1393,6 +1393,13 @@ if(window.ScrollTrigger){ try{ ScrollTrigger.refresh(); }catch(e){} }
   var brand = document.querySelector('.nav-brand');
   var label = brand && brand.querySelector('.nav-sec');
   if (!brand || !label) return;
+  // logo click: go to the top of the home page without ever putting "#" in the address bar
+  brand.addEventListener('click', function(e){
+    e.preventDefault();
+    if (location.pathname !== '/' && location.pathname !== '/index.html') { location.href = '/'; return; }
+    try { if (history.replaceState) history.replaceState(null, '', '/'); } catch(err){}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
   var current = '';
   var gsp = window.gsap;
   if (gsp) { gsp.set(label, { xPercent: -50, yPercent: -50 }); }

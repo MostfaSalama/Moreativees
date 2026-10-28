@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Work Archive — MOREATIVE Creative Studio</title>
+<title>Portfolio — MOREATIVE Creative Studio</title>
 <meta name="description" content="Browse every Moreative project: logo, branding identity, packaging, 3D modeling, prints and full-scale production work." />
 <meta name="theme-color" content="#050505" />
-<link rel="canonical" href="https://moreative.com/archive" />
+<link rel="canonical" href="https://moreative.com/portfolio" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="MOREATIVE" />
-<meta property="og:title" content="Work Archive — MOREATIVE" />
+<meta property="og:title" content="Portfolio — MOREATIVE" />
 <meta property="og:description" content="Every project, one grid. Branding, 3D, print and production work." />
 <meta property="og:image" content="https://moreative.com/assets/hero-cover.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -23,6 +23,11 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .nav-logo{height:30px;width:auto;display:block}
 .pill{background:#f5f5f5;color:#000;border-radius:999px;font-weight:600}
 #arch-head{text-align:center;padding:8.5rem 1.5rem 2rem}
+#pf-path{margin:1.15rem auto 0;min-height:1rem;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.55rem;font-family:'Space Grotesk',sans-serif;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+#pf-path .sep{color:rgba(255,255,255,.24);letter-spacing:0}
+#pf-path b{font-weight:600;color:rgba(255,255,255,.95)}
+#pf-path:empty{display:none}
+@media(max-width:640px){#pf-path{font-size:.58rem;letter-spacing:.2em;gap:.4rem}}
 .pfglass{display:flex;justify-content:center;gap:.4rem;margin:0 auto;animation:pgFloat 6s ease-in-out 2s infinite}
 @keyframes pgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .pfglass .pg{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(255,255,255,.17),rgba(255,255,255,.04));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.3);border-top-color:rgba(255,255,255,.6);border-radius:.9rem;padding:.45em .4em;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 18px 40px rgba(0,0,0,.45);opacity:0;transform:translateY(44px) scale(.9);animation:pgIn .65s cubic-bezier(.2,.9,.3,1.3) both;animation-delay:var(--d,0s);transition:transform .35s ease,box-shadow .35s,border-color .35s;cursor:default}
@@ -90,12 +95,13 @@ footer{border-top:1px solid rgba(255,255,255,.1);margin-top:4rem;padding:2rem;te
 <body>
 <nav class="fixed top-0 w-full z-50 backdrop-blur bg-black/60 border-b border-white/10"><div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
 <a href="/" aria-label="Back home" class="font-display text-xs tracking-[0.25em] text-white/80">← HOME</a>
-<a href="/" aria-label="Moreative home" class="absolute left-1/2 -translate-x-1/2 flex items-center"><img src="assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"></a>
+<a href="/" aria-label="Moreative home" class="absolute left-1/2 -translate-x-1/2 flex items-center"><img src="/assets/logo-icon.svg?v=2" alt="Moreative" class="nav-logo"></a>
 <span style="width:42px"></span>
 </div></nav>
 
 <header id="arch-head" data-sec="arch-head">
 <h1 class="pfglass" id="pfglass">PORTFOLIO</h1>
+<p id="pf-path" aria-live="polite"></p>
 </header>
 
 <div id="filters" data-sec="arch-filters"></div>
@@ -105,7 +111,7 @@ footer{border-top:1px solid rgba(255,255,255,.1);margin-top:4rem;padding:2rem;te
 <div id="behance-view" aria-hidden="true" role="dialog" aria-label="Project case">
 <div class="behance-head">
 <button class="b-btn" onclick="closeBehance()">← BACK</button>
-<img src="assets/logo-icon.svg?v=2" alt="Moreative" style="position:absolute;left:50%;transform:translateX(-50%);height:26px;width:auto">
+<img src="/assets/logo-icon.svg?v=2" alt="Moreative" style="position:absolute;left:50%;transform:translateX(-50%);height:26px;width:auto">
 <span></span>
 </div>
 <div class="behance-frame">
@@ -129,6 +135,63 @@ footer{border-top:1px solid rgba(255,255,255,.1);margin-top:4rem;padding:2rem;te
 (function(){
 var PROJECTS=[],CATS=['Logo','Branding Identity','Packaging','3D Modeling','Prints','Production'];
 var curCat='All';
+/* ---- clean routes: /portfolio , /portfolio/<category> , /portfolio/<category>/<project> ---- */
+var BASE='/portfolio';
+function slugify(s){ return String(s==null?'':s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+function urlFor(cat,proj){
+  if(proj) return BASE+'/'+slugify(proj.cat||'work')+'/'+slugify(proj.id||proj.t);
+  if(cat&&cat!=='All') return BASE+'/'+slugify(cat);
+  return BASE;
+}
+function setPath(url,mode){
+  try{ if(mode==='replace') history.replaceState({pf:1},'',url); else history.pushState({pf:1},'',url); }catch(e){}
+}
+function parsePath(){
+  var parts=location.pathname.replace(/\/+$/,'').split('/').filter(Boolean);
+  if(!parts.length) return {cat:null,proj:null,valid:false};
+  if(parts[0]!=='portfolio') return {cat:null,proj:null,valid:false};
+  return {cat:parts[1]?decodeURIComponent(parts[1]):null,proj:parts[2]?decodeURIComponent(parts[2]):null,valid:true};
+}
+function paintPath(){
+  var el=document.getElementById('pf-path'); if(!el) return;
+  var v=document.getElementById('behance-view');
+  var open=!!(v&&v.classList.contains('open')&&PROJECTS[__bIndex]);
+  var p=open?PROJECTS[__bIndex]:null;
+  var bits=['PORTFOLIO'];
+  if(p) bits.push(String(p.cat||'').toUpperCase(),String(p.t||'').toUpperCase());
+  else if(curCat&&curCat!=='All') bits.push(String(curCat).toUpperCase());
+  el.innerHTML='';
+  bits.filter(Boolean).forEach(function(b,i){
+    if(i){ var sp=document.createElement('span'); sp.className='sep'; sp.textContent='/'; el.appendChild(sp); }
+    var t=document.createElement(i===bits.length-1?'b':'span'); t.textContent=b; el.appendChild(t);
+  });
+  if(p) document.title=String(p.t).toUpperCase()+' — Portfolio | MOREATIVE';
+  else if(curCat&&curCat!=='All') document.title=String(curCat).toUpperCase()+' — Portfolio | MOREATIVE';
+  else document.title='Portfolio — MOREATIVE Creative Studio';
+}
+function syncFromUrl(){
+  var r=parsePath();
+  if(!r.valid){ setPath(BASE,'replace'); }
+  var cat='All';
+  if(r.cat){ for(var i=0;i<CATS.length;i++){ if(slugify(CATS[i])===r.cat){ cat=CATS[i]; break; } } }
+  if(cat!==curCat){ curCat=cat; renderFilters(); renderGrid(true); }
+  var idx=-1;
+  if(r.proj){ for(var j=0;j<PROJECTS.length;j++){ if(slugify(PROJECTS[j].id||PROJECTS[j].t)===r.proj){ idx=j; break; } } }
+  if(idx>-1){ openBehance(idx,'none'); }
+  else{
+    var v=document.getElementById('behance-view');
+    if(v&&v.classList.contains('open')) closeBehance('none');
+    paintPath();
+    if(r.proj){ setPath(urlFor(curCat),'replace'); }
+  }
+}
+window.addEventListener('popstate',function(){ syncFromUrl(); });
+function absUrl(u){
+  if(!u) return u;
+  var s=String(u);
+  if(/^(https?:)?\/\//i.test(s) || s.indexOf('data:')===0) return s;
+  return '/'+s.replace(/^\.?\//,'');
+}
 function normProject(p,i){
   var fall=['PROJECT '+(i+1)];
   var seed=String((p&&p.name)||('pr'+i)).toLowerCase().replace(/[^a-z0-9]+/g,'');
@@ -137,16 +200,17 @@ function normProject(p,i){
     var base=(p&&p.image)||('https://picsum.photos/seed/'+seed+'/1280/800');
     gal=[base,'https://picsum.photos/seed/'+seed+'-a/1920/1080','https://picsum.photos/seed/'+seed+'-b/1920/1080'];
   }
+  gal=gal.map(function(g){ if(g&&typeof g==='object') g=g.image||g.url||g.src||''; return absUrl(g); }).filter(Boolean);
   return {
     id:(p&&p.id)||seed||('p'+i), t:(p&&p.name)||fall[0], d:(p&&p.desc)||'',
-    img:(p&&p.image)||gal[0], gallery:gal, client:(p&&p.client)||'Moreative Client',
+    img:absUrl((p&&p.image)||gal[0]), gallery:gal, client:(p&&p.client)||'Moreative Client',
     year:(p&&p.year)||'2026', role:(p&&p.role)||'', services:(p&&p.services)||[],
     links:(p&&p.links)||[], cat:(p&&p.cat)||'Branding Identity',
     keywords:(p&&Array.isArray(p.keywords))?p.keywords:[]
   };
 }
 function load(){
-  return fetch('data/site.json?v='+Date.now()).then(function(r){return r.json();}).then(function(data){
+  return fetch('/data/site.json?v='+Date.now()).then(function(r){return r.json();}).then(function(data){
     PROJECTS=(data.projects||[]).map(normProject).filter(function(p){return (data.projects.find(function(x){return (x.id||'')===(p.id);})||{}).status!=='draft';});
     renderFilters(); renderGrid();
     try{
@@ -178,7 +242,7 @@ function renderFilters(){
     var b=document.createElement('button');
     b.className='fpill'+(curCat===c?' on':'');
     b.textContent=c.toUpperCase();
-    b.onclick=function(){ if(curCat===c)return; curCat=c; renderFilters(); renderGrid(true); };
+    b.onclick=function(){ if(curCat===c)return; curCat=c; renderFilters(); renderGrid(true); setPath(urlFor(curCat)); paintPath(); };
     f.appendChild(b);
   });
 }
@@ -208,12 +272,15 @@ function renderGrid(anim){
 }
 var __bIndex=0;
 function getGallery(p){ return (p.gallery&&p.gallery.length)?p.gallery:[p.img]; }
-function openBehance(i){
+function openBehance(i,mode){
   __bIndex=(i+PROJECTS.length)%PROJECTS.length;
   renderBehance();
   var v=document.getElementById('behance-view');
   v.classList.add('open'); v.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden'; v.scrollTop=0;
+  var p=PROJECTS[__bIndex];
+  paintPath();
+  if(mode!=='none'&&p) setPath(urlFor(null,p),mode==='replace'?'replace':'push');
 }
 function renderBehance(){
   var p=PROJECTS[__bIndex]; if(!p) return;
@@ -254,7 +321,15 @@ function renderBehance(){
   document.getElementById('b-next-img').src=nx.img;
 }
 function stepBehance(d){ openBehance(__bIndex+d); }
-function closeBehance(){ var v=document.getElementById('behance-view'); v.classList.remove('open'); v.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+function closeBehance(mode){
+  var v=document.getElementById('behance-view');
+  if(!v||!v.classList.contains('open')) return;
+  v.classList.remove('open'); v.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+  paintPath();
+  if(mode==='none') return;
+  if(history.state&&history.state.pf) history.back();
+  else setPath(urlFor(curCat),'replace');
+}
 window.openBehance=openBehance; window.closeBehance=closeBehance; window.stepBehance=stepBehance;
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape') closeBehance();
@@ -262,13 +337,13 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight') stepBehance(1);
   if(e.key==='ArrowLeft') stepBehance(-1);
 });
-load();
+load().then(function(){ syncFromUrl(); },function(){ syncFromUrl(); });
 })();
 </script>
 <script>
 if (location.search.indexOf('studio=1') > -1) {
   var __es = document.createElement('script');
-  __es.src = 'studio-bridge.js?v=' + Date.now();
+  __es.src = '/studio-bridge.js?v=' + Date.now();
   document.body.appendChild(__es);
 }
 </script>

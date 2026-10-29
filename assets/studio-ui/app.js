@@ -1001,7 +1001,14 @@
     $('#togglePw').onclick = function () {
       var pw = document.getElementById('pw');
       pw.type = pw.type === 'password' ? 'text' : 'password';
-      document.getElementById('togglePw').innerHTML = pw.type === 'password' ? '&#128065;' : '&#128582;';
+      var svg = document.querySelector('#togglePw svg');
+      if (svg) {
+        if (pw.type === 'password') {
+          svg.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          svg.innerHTML = '<path d="M17 1l4 4-4 4M3 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" stroke-dasharray="2 2"/><line x1="5" y1="5" x2="19" y2="19" stroke-width="2"/>';
+        }
+      }
       document.getElementById('togglePw').title = pw.type === 'password' ? 'Show password' : 'Hide password';
     };
     $('#outBtn').onclick = function () { api('/api/logout', { method: 'POST' }).then(function () { location.reload(); }); };

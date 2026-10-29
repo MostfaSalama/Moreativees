@@ -992,7 +992,8 @@
     $('#togglePw').onclick = function () {
       var pw = document.getElementById('pw');
       pw.type = pw.type === 'password' ? 'text' : 'password';
-      document.getElementById('togglePw').textContent = pw.type === 'password' ? 'Show' : 'Hide';
+      document.getElementById('togglePw').innerHTML = pw.type === 'password' ? '&#128065;' : '&#128582;';
+      document.getElementById('togglePw').title = pw.type === 'password' ? 'Show password' : 'Hide password';
     };
     $('#outBtn').onclick = function () { api('/api/logout', { method: 'POST' }).then(function () { location.reload(); }); };
     $('#publishTop').onclick = function () { setTab('publish'); };

@@ -21,7 +21,10 @@
     <p class="hint" id="gateHint">Enter the password to edit and publish the site.</p>
 
     <label class="sr" for="pw">Password</label>
-    <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" spellcheck="false">
+    <div style="position:relative">
+      <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" spellcheck="false" style="padding-right:3rem">
+      <button type="button" id="togglePw" style="position:absolute;right:.4rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:.4rem;padding:.25rem .55rem;font-size:.72rem;color:rgba(255,255,255,.8);cursor:pointer;letter-spacing:.08em">Show</button>
+    </div>
     <button id="loginBtn" class="btn primary" type="button" style="width:100%">Sign in</button>
     <div class="err" id="gateErr" role="alert"></div>
 

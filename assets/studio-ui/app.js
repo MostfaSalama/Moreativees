@@ -1,4 +1,4 @@
-/* MOREATIVE STUDIO — /studio
+/* MOREATIVE STUDIO — private admin page
    App writes nothing until you press Publish. Publish commits data/*.json
    to GitHub through /api/publish, Vercel redeploys automatically. */
 (function () {
@@ -989,6 +989,11 @@
     });
     $('#loginBtn').onclick = login;
     $('#pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') login(); });
+    $('#togglePw').onclick = function () {
+      var pw = document.getElementById('pw');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+      document.getElementById('togglePw').textContent = pw.type === 'password' ? 'Show' : 'Hide';
+    };
     $('#outBtn').onclick = function () { api('/api/logout', { method: 'POST' }).then(function () { location.reload(); }); };
     $('#publishTop').onclick = function () { setTab('publish'); };
     $('#previewBtn').onclick = function () { window.open('/', '_blank', 'noopener'); };

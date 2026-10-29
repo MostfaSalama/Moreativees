@@ -245,6 +245,7 @@
 
   var MAX_EDGE = 2600;
   var MAX_BYTES = 3.2 * 1024 * 1024;
+  var MAX_TOTAL_CLIENT = 28 * 1024 * 1024; // keep under Vercel hard cap (30 MB safety)
 
   function pickImage(cb) {
     var inp = document.createElement('input');

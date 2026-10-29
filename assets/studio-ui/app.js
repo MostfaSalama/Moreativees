@@ -245,7 +245,7 @@
 
   var MAX_EDGE = 2600;
   var MAX_BYTES = 3.2 * 1024 * 1024;
-  var MAX_TOTAL_CLIENT = 28 * 1024 * 1024; // keep under Vercel free-tier cap
+  var MAX_TOTAL_CLIENT = 48 * 1024 * 1024; // 50 MB server cap with margin
 
   function pickImage(cb) {
     var inp = document.createElement('input');

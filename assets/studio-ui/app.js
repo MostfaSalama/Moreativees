@@ -987,7 +987,16 @@
     document.querySelectorAll('nav.tabs button').forEach(function (b) {
       b.onclick = function () { setTab(b.getAttribute('data-tab')); };
     });
-    $('#loginBtn').onclick = login;
+    $('#loginBtn').onclick = function () {
+      login();
+      var w = document.getElementById('welcome');
+      if (w) { w.style.display = 'flex'; w.style.opacity = '1'; w.style.visibility = 'visible'; w.style.pointerEvents = 'auto'; }
+      setTimeout(function () {
+        var w2 = document.getElementById('welcome');
+        if (w2) { w2.style.opacity = '0'; w2.style.pointerEvents = 'none'; }
+        setTimeout(function () { var g = document.getElementById('gate'); if (g) g.hidden = true; var a = document.getElementById('app'); if (a) a.hidden = false; }, 800);
+      }, 2400);
+    };
     $('#pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') login(); });
     $('#togglePw').onclick = function () {
       var pw = document.getElementById('pw');

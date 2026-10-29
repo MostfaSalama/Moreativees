@@ -1,25 +1,13 @@
-<div id="welcome" style="position:fixed;inset:0;z-index:70;background:#050505;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.22em;opacity:1;visibility:visible;transition:opacity .8s ease;pointer-events:auto">
+<div id="welcome" style="position:fixed;inset:0;z-index:70;background:#050505;display:none;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.22em;opacity:0;visibility:hidden;transition:opacity .8s ease;pointer-events:auto">
   <div style="font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.05;text-align:center;animation:welcomeFade .8s ease both">
     <span style="display:block;font-size:.55em;color:rgba(255,255,255,.55);letter-spacing:.35em;margin-bottom:.35em">MOREATIVE</span>
     <span style="display:block;letter-spacing:.08em">WELCOME WOLF</span>
   </div>
-  <div style="width:120px;height:1.5px;background:rgba(255,255,255,.35);margin:1.2rem 0;border-radius:999px;animation:welcomeLine .9s .35s ease both"></div>
-  <div style="font-family:Inter,system-ui,sans-serif;font-size:.82rem;color:rgba(255,255,255,.55);letter-spacing:.28em;text-transform:uppercase;animation:welcomeSub .9s .55s ease both">Enter the studio</div>
+  <div style="width:140px;height:2px;background:rgba(255,255,255,.25);margin:1.4rem 0;border-radius:999px;animation:welcomeLine .8s .25s ease both"></div>
+  <div style="font-family:Inter,system-ui,sans-serif;font-size:.82rem;color:rgba(255,255,255,.45);letter-spacing:.3em;text-transform:uppercase;animation:welcomeSub .8s .45s ease both">Enter the studio</div>
 </div>
 <style>
-@keyframes welcomeFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes welcomeFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes welcomeLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes welcomeSub{from{opacity:0}to{opacity:1}}
 </style>
-<script>
-(function(){
-  var btn=document.getElementById('loginBtn');
-  if(!btn)return;
-  btn.addEventListener('click',function(e){
-    e.preventDefault();
-    var w=document.getElementById('welcome');
-    if(w){w.style.opacity='0';w.style.visibility='hidden';}
-    setTimeout(function(){document.querySelector('#gate').hidden=false;},750);
-  },{once:true});
-})();
-</script>

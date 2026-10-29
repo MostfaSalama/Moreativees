@@ -982,11 +982,12 @@
       if (svg) {
         if (pw.type === 'password') {
           svg.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
+          document.getElementById('togglePw').title = 'Show password';
         } else {
-          svg.innerHTML = '<path d="M17 1l4 4-4 4M3 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" stroke-dasharray="2 2"/><line x1="5" y1="5" x2="19" y2="19" stroke-width="2"/>';
+          svg.innerHTML = '<line x1="4" y1="4" x2="20" y2="20" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="4" x2="4" y2="20" stroke-width="2" stroke-linecap="round"/>';
+          document.getElementById('togglePw').title = 'Hide password';
         }
       }
-      document.getElementById('togglePw').title = pw.type === 'password' ? 'Show password' : 'Hide password';
     };
     $('#outBtn').onclick = function () { api('/api/logout', { method: 'POST' }).then(function () { location.reload(); }); };
     $('#publishTop').onclick = function () { setTab('publish'); };

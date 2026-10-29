@@ -925,64 +925,40 @@
 
   function publish() {
     var files = [];
-    if (json2(S) !== json2(BASE_S)) files.push({ path: 'data/site.json', text: json2(S) });
-    if (json2(ED) !== json2(BASE_ED)) files.push({ path: 'data/editor.json', text: json2(ED) });
-    Object.keys(pending).forEach(function (p) {
-      files.push({ path: p, base64: pending[p].b64 });
-    });
-    if (!files.length) { toast('Nothing to publish.'); return; }
-
-    var msgInput = $('#commitMsg');
-    var message = (msgInput && msgInput.value.trim()) || 'Studio: update content';
-    var btn = $('#publishNow');
-    if (btn) { btn.disabled = true; btn.textContent = 'Publishing…'; }
-    $('#publishTop').disabled = true;
-
-    api('/api/publish', { method: 'POST', body: JSON.stringify({ files: files, message: message }) }).then(function (j) {
-      if (btn) { btn.disabled = false; btn.textContent = 'Publish now'; }
-      if (!j.ok) {
-        paintState();
-        var code = j.code || 'error';
-        var msg = j.msg || 'Publish failed.';
-        if (code === 'auth') { toast('Session expired — sign in again.', true); location.reload(); return; }
-        if (code === 'no-token') toast('No GitHub token set in Vercel — see Connection above.', true);
-        else toast(msg, true);
+    if (json2(S) !== json2(BASE_S)) files.push({ path: "data/site.json", text: json2(S) });
+    if (json2(ED) !== json2(BASE_ED)) files.push({ path: "data/editor.json", text: json2(ED) });
+    var imgFiles = [];
+    Object.keys(pending).forEach(function (p) { imgFiles.push({ path: p, base64: pending[p].b64 }); });
+    var batches = [];
+    if (imgFiles.length > 0) { for (var k = 0; k < imgFiles.length; k += 3) batches.push(imgFiles.slice(k, k + 3)); }
+    if (files.length > 0) batches.push(files);
+    if (!batches.length || batches[0].length === 0) { toast("Nothing to publish."); return; }
+    var msgInput = $("#commitMsg");
+    var message = (msgInput && msgInput.value.trim()) || "Studio: update content";
+    var btn = $("#publishNow");
+    if (btn) { btn.disabled = true; btn.textContent = "Publishing…"; }
+    $("#publishTop").disabled = true;
+    function sendBatch(idx) {
+      if (idx >= batches.length) {
+        if (btn) { btn.disabled = false; btn.textContent = "Publish now"; }
+        pending = {}; BASE_S = clone(S); BASE_ED = clone(ED);
+        renderProjects(); renderPublish(); paintState();
+        var host = $("#pubResult");
+        if (host) { host.hidden = false; clear(host); host.appendChild(node("h2", null, "Published")); var ok = node("div", "hint"); ok.innerHTML = "All batches published. Vercel is redeploying."; host.appendChild(ok); }
+        toast("Published (batched). The live site updates in about a minute.");
         return;
       }
-      // success
-      pending = {};
-      BASE_S = clone(S);
-      BASE_ED = clone(ED);
-      renderProjects();
-      renderPublish();
-      paintState();
-
-      var host = $('#pubResult');
-      if (host) {
-        host.hidden = false;
-        clear(host);
-        host.appendChild(node('h2', null, 'Published'));
-        var ok = node('div', 'hint');
-        ok.innerHTML = 'Commit <b>' + j.commit.short + '</b> pushed to GitHub · ' + j.commit.files +
-          ' file' + (j.commit.files > 1 ? 's' : '') + ' · Vercel is redeploying now.';
-        host.appendChild(ok);
-        var a = node('a', 'btn tiny', 'Open commit on GitHub ↗');
-        a.href = j.commit.url;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.style.marginTop = '.6rem';
-        a.style.display = 'inline-block';
-        host.appendChild(a);
-        host.scrollIntoView({ block: 'nearest' });
-      }
-      toast('Published. The live site updates in about a minute.');
-    }).catch(function () {
-      if (btn) { btn.disabled = false; btn.textContent = 'Publish now'; }
-      paintState();
-      toast('Network error while publishing.', true);
-    });
-  }
-
+      api("/api/publish", { method: "POST", body: JSON.stringify({ files: batches[idx], message: message }) }).then(function (j) {
+        if (!j.ok) {
+          if (btn) { btn.disabled = false; btn.textContent = "Publish now"; }
+          paintState();
+          toast((j.msg || "Publish failed.") + (j.code ? " (" + j.code + ")" : ""), true);
+          return;
+        }
+        sendBatch(idx + 1);
+      }).catch(function () { if (btn) { btn.disabled = false; btn.textContent = "Publish now"; } paintState(); toast("Network error.", true); });
+    }
+    sendBatch(0);
   // ---------------------------------------------------------------- boot
   function boot() {
     document.querySelectorAll('nav.tabs button').forEach(function (b) {

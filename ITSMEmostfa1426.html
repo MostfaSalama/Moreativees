@@ -41,21 +41,16 @@
 </script>
 <div id="gate">
   <div class="gatebox">
-    <div class="mark" style="font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.3em;font-size:1.15rem;margin-bottom:1.2rem;position:relative;display:inline-block">
-  <svg width="42" height="42" viewBox="0 0 42 42" style="vertical-align:-9px;margin-right:.35rem;filter:drop-shadow(0 0 10px rgba(255,255,255,.25))" aria-label="Moreative">
-    <defs><linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ccc"/></linearGradient></defs>
-    <circle cx="21" cy="21" r="19" fill="none" stroke="url(#iconGrad)" stroke-width="1.5"/>
-    <path d="M13 28 L21 10 L29 28 Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-    <circle cx="21" cy="23" r="2.8" fill="#fff"/>
-  </svg>
-  <span>MOREATIVE <span>/ STUDIO</span></span>
-</div>
+    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
     <p class="hint" id="gateHint">Enter the password to edit and publish the site.</p>
 
     <label class="sr" for="pw">Password</label>
     <div style="position:relative">
       <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" spellcheck="false" style="padding-right:3rem">
-      <button type="button" id="togglePw" style="position:absolute;right:.4rem;top:50%;transform:translateY(-50%);background:none;border:0;color:#fff;cursor:pointer;font-size:1.1rem;line-height:1;padding:.25rem" aria-label="Show password" title="Show password">&#128065;</button>
+      <button type="button" id="togglePw" style="position:absolute;right:.4rem;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;transition:.25s;animation:eyePop .6s ease;" aria-label="Show password" title="Show password">&#128065;</button>
+<style>
+@keyframes eyePop{from{transform:translateY(-50%) scale(.7);opacity:.4}to{transform:translateY(-50%) scale(1);opacity:1}}
+</style>
     </div>
     <button id="loginBtn" class="btn primary" type="button" style="width:100%">Sign in</button>
     <div class="err" id="gateErr" role="alert"></div>
@@ -71,15 +66,7 @@
 <!-- ---------------------------------------------------------------- app -->
 <div id="app" hidden>
   <header id="bar">
-    <div class="mark" style="font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.3em;font-size:1.15rem;margin-bottom:1.2rem;position:relative;display:inline-block">
-  <svg width="42" height="42" viewBox="0 0 42 42" style="vertical-align:-9px;margin-right:.35rem;filter:drop-shadow(0 0 10px rgba(255,255,255,.25))" aria-label="Moreative">
-    <defs><linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ccc"/></linearGradient></defs>
-    <circle cx="21" cy="21" r="19" fill="none" stroke="url(#iconGrad)" stroke-width="1.5"/>
-    <path d="M13 28 L21 10 L29 28 Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-    <circle cx="21" cy="23" r="2.8" fill="#fff"/>
-  </svg>
-  <span>MOREATIVE <span>/ STUDIO</span></span>
-</div>
+    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
     <nav class="tabs">
       <button type="button" data-tab="projects">Projects</button>
       <button type="button" data-tab="content">Content</button>

@@ -44,7 +44,7 @@
       "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     },
     {
-      "source": "/studio",
+      "source": "/ITSMEmostfa1426",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
         { "key": "X-Frame-Options", "value": "DENY" },
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "source": "/studio.html",
+      "source": "/ITSMEmostfa1426.html",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
         { "key": "X-Frame-Options", "value": "DENY" },

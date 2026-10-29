@@ -16,10 +16,40 @@
 <!-- 3D background canvas -->
 <canvas id="bg3d" style="position:fixed;inset:0;width:100%;height:100%;z-index:-1;opacity:.55;pointer-events:none"></canvas>
 
-<!-- ---------------------------------------------------------------- gate -->
+<div id="welcome" style="position:fixed;inset:0;z-index:70;background:#050505;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.22em;opacity:1;visibility:visible;transition:opacity .8s ease;pointer-events:auto">
+  <div style="font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.05;text-align:center;animation:welcomeFade .8s ease both">
+    <span style="display:block;font-size:.55em;color:rgba(255,255,255,.55);letter-spacing:.35em;margin-bottom:.35em">MOREATIVE</span>
+    <span style="display:block;letter-spacing:.08em">WELCOME WOLF</span>
+  </div>
+  <div style="width:140px;height:2px;background:rgba(255,255,255,.25);margin:1.4rem 0;border-radius:999px;animation:welcomeLine .8s .25s ease both"></div>
+  <div style="font-family:Inter,system-ui,sans-serif;font-size:.82rem;color:rgba(255,255,255,.45);letter-spacing:.3em;text-transform:uppercase;animation:welcomeSub .8s .45s ease both">Enter the studio</div>
+</div>
+<style>
+@keyframes welcomeFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes welcomeLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes welcomeSub{from{opacity:0}to{opacity:1}}
+</style>
+<script>
+(function(){
+  document.getElementById('loginBtn').addEventListener('click',function(e){
+    e.preventDefault();
+    var w=document.getElementById('welcome');
+    if(w){w.style.opacity='0';w.style.pointerEvents='none';}
+    setTimeout(function(){document.getElementById('gate').hidden=false;},700);
+  },{once:true});
+})();
+</script>
 <div id="gate">
   <div class="gatebox">
-    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
+    <div class="mark" style="font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.3em;font-size:1.15rem;margin-bottom:1.2rem;position:relative;display:inline-block">
+  <svg width="42" height="42" viewBox="0 0 42 42" style="vertical-align:-9px;margin-right:.35rem;filter:drop-shadow(0 0 10px rgba(255,255,255,.25))" aria-label="Moreative">
+    <defs><linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ccc"/></linearGradient></defs>
+    <circle cx="21" cy="21" r="19" fill="none" stroke="url(#iconGrad)" stroke-width="1.5"/>
+    <path d="M13 28 L21 10 L29 28 Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="21" cy="23" r="2.8" fill="#fff"/>
+  </svg>
+  <span>MOREATIVE <span>/ STUDIO</span></span>
+</div>
     <p class="hint" id="gateHint">Enter the password to edit and publish the site.</p>
 
     <label class="sr" for="pw">Password</label>
@@ -41,7 +71,15 @@
 <!-- ---------------------------------------------------------------- app -->
 <div id="app" hidden>
   <header id="bar">
-    <div class="mark">MOREATIVE <span>/ STUDIO</span></div>
+    <div class="mark" style="font-family:'Archivo Black',Space Grotesk,sans-serif;letter-spacing:.3em;font-size:1.15rem;margin-bottom:1.2rem;position:relative;display:inline-block">
+  <svg width="42" height="42" viewBox="0 0 42 42" style="vertical-align:-9px;margin-right:.35rem;filter:drop-shadow(0 0 10px rgba(255,255,255,.25))" aria-label="Moreative">
+    <defs><linearGradient id="iconGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ccc"/></linearGradient></defs>
+    <circle cx="21" cy="21" r="19" fill="none" stroke="url(#iconGrad)" stroke-width="1.5"/>
+    <path d="M13 28 L21 10 L29 28 Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="21" cy="23" r="2.8" fill="#fff"/>
+  </svg>
+  <span>MOREATIVE <span>/ STUDIO</span></span>
+</div>
     <nav class="tabs">
       <button type="button" data-tab="projects">Projects</button>
       <button type="button" data-tab="content">Content</button>
@@ -71,25 +109,5 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="/assets/studio-ui/app.js"></script>
-<script>
-(function(){
-  var c=document.getElementById('bg3d'),ctx=c.getContext('2d');
-  if(!c||!ctx)return;
-  var W=c.width=window.innerWidth,H=c.height=window.innerHeight;
-  var pts=[]; for(var i=0;i<60;i++){ pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6}); }
-  function loop(){
-    ctx.fillStyle='#050505'; ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(255,255,255,.08)'; ctx.lineWidth=1;
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i]; p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;
-      ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.35)'; ctx.fill();
-      for(var j=i+1;j<pts.length;j++){ var q=pts[j]; var dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy); if(d<160){ ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); } }
-    }
-    requestAnimationFrame(loop);
-  }
-  window.addEventListener('resize',function(){ W=c.width=window.innerWidth; H=c.height=window.innerHeight; });
-  loop();
-})();
-</script>
 </body>
 </html>

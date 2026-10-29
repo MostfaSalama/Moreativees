@@ -4,7 +4,7 @@ import { commitFiles, tokenReady } from '../lib/github.js';
 const ALLOWED = ['data/', 'assets/uploads/'];
 const SAFE_PATH = /^[A-Za-z0-9._\-\/]+$/;
 // Vercel caps function request bodies at 4.5 MB; keep a margin.
-const MAX_TOTAL = 250 * 1024 * 1024;
+const MAX_TOTAL = 30 * 1024 * 1024;
 
 function badPath(p) {
   if (typeof p !== 'string' || !p) return true;
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       }
     }
     if (total > MAX_TOTAL) {
-      res.status(413).json({ ok: false, code: 'size', msg: 'Upload is too large (max 250 MB per publish).' });
+      res.status(413).json({ ok: false, code: 'size', msg: 'Upload is too large (max 30 MB per publish).' });
       return;
     }
   }

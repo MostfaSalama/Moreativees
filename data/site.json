@@ -65,14 +65,19 @@
       "desc": "Fast-food brand system: toys, bags and menus in hot red with playful Arabic/Latin lockup.",
       "image": "assets/uploads/1793256450618-prova.png",
       "client": "Flammer Foods",
-      "year": "2025",
+      "year": "2026",
       "role": "Brand System & Menu",
       "services": [
         "Art Direction",
         "Packaging",
         "Menu Design"
       ],
-      "gallery": [],
+      "gallery": [
+        "assets/uploads/1793323095054-gemini-generated-image-h4pc4lh4pc4lh4pc.jpg",
+        "assets/uploads/1793323100660-box12.jpg",
+        "assets/uploads/1793323107297-roll1.jpg",
+        "assets/uploads/1793323117524-prova.jpg"
+      ],
       "status": "published",
       "links": [],
       "keywords": []

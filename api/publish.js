@@ -3,8 +3,10 @@ import { commitFiles, tokenReady } from '../lib/github.js';
 
 const ALLOWED = ['data/', 'assets/uploads/'];
 const SAFE_PATH = /^[A-Za-z0-9._\-\/]+$/;
-// Vercel caps function request bodies at 4.5 MB; keep a margin.
-const MAX_TOTAL = 50 * 1024 * 1024;
+// Vercel caps a function request body at 4.5 MB. The studio already splits a
+// large publish into small batches, so this is a per-batch guard with margin.
+// (Total per publish session is capped at 50 MB on the client.)
+const MAX_TOTAL = 4.2 * 1024 * 1024;
 
 function badPath(p) {
   if (typeof p !== 'string' || !p) return true;
@@ -59,7 +61,7 @@ export default async function handler(req, res) {
       }
     }
     if (total > MAX_TOTAL) {
-      res.status(413).json({ ok: false, code: 'size', msg: 'Upload is too large (max 50 MB per publish).' });
+      res.status(413).json({ ok: false, code: 'size', msg: 'This batch is too large. The studio splits uploads automatically — reload the page and try again.' });
       return;
     }
   }

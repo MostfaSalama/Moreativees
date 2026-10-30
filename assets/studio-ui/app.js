@@ -69,6 +69,7 @@
     var app = $('#app');
     gate.hidden = false;
     app.hidden = true;
+    document.body.classList.remove('in-studio');
     var err = $('#gateErr');
     var btn = $('#loginBtn');
     if (reason === 'no-password') {
@@ -95,7 +96,7 @@
     api('/api/login', { method: 'POST', body: JSON.stringify({ password: pw }) }).then(function (j) {
       btn.disabled = false;
       btn.textContent = 'Sign in';
-      if (j.ok) { $('#gateErr').textContent = ''; loadAll(); return; }
+      if (j.ok) { $('#gateErr').textContent = ''; enterStudio(); return; }
       if (j.code === 'no-password') { showGate('no-password'); return; }
       $('#gateErr').textContent = 'Wrong password.';
       $('#pw').value = '';
@@ -105,6 +106,30 @@
       btn.textContent = 'Sign in';
       $('#gateErr').textContent = 'Connection error. Try again.';
     });
+  }
+
+  // ---------------------------------------------------------------- welcome
+  function enterStudio() {
+    var w = $('#welcome');
+    if (w) {
+      w.hidden = false;
+      w.setAttribute('aria-hidden', 'false');
+      w.classList.remove('on');
+      void w.offsetWidth; // restart the entrance animation on every sign-in
+      w.classList.add('on');
+    }
+    var pw = $('#pw');
+    if (pw) pw.value = '';
+
+    loadAll();
+
+    clearTimeout(enterStudio._timer);
+    enterStudio._timer = setTimeout(function () {
+      if (w) w.classList.remove('on');
+      setTimeout(function () {
+        if (w) { w.hidden = true; w.setAttribute('aria-hidden', 'true'); }
+      }, 640);
+    }, 2400);
   }
 
   // ---------------------------------------------------------------- data
@@ -127,6 +152,7 @@
     }).then(function () {
       $('#gate').hidden = true;
       $('#app').hidden = false;
+      document.body.classList.add('in-studio');
       renderAll();
       setTab('projects');
       BASE_S = clone(S);
@@ -135,6 +161,7 @@
     }).catch(function (e) {
       $('#gate').hidden = false;
       $('#app').hidden = true;
+      document.body.classList.remove('in-studio');
       $('#gateErr').textContent = 'Could not load site data (' + (e && e.message ? e.message : 'network') + '). Reload the page.';
       toast('Could not load site data: ' + (e && e.message ? e.message : 'network'), true);
     });
@@ -243,9 +270,15 @@
     return '/' + path.replace(/^\.?\//, '');
   }
 
-  var MAX_EDGE = 2600;
-  var MAX_BYTES = 3.2 * 1024 * 1024;
-  var MAX_TOTAL_CLIENT = 48 * 1024 * 1024; // 50 MB server cap with margin
+  var MAX_EDGE = 2400;                 // plenty for a 2x retina web image
+  var MAX_BYTES = 2.2 * 1024 * 1024;   // encoded target per image
+  var MAX_TOTAL_CLIENT = 50 * 1024 * 1024; // per publish session, across batches
+
+  function totalPendingBytes() {
+    return Object.keys(pending).reduce(function (n, k) {
+      return n + String(pending[k].b64 || '').length * 0.75;
+    }, 0);
+  }
 
   function pickImage(cb) {
     var inp = document.createElement('input');
@@ -274,7 +307,11 @@
       var b64 = finalUrl.split(',')[1] || '';
       if (!b64) { toast('Could not read that image.', true); return; }
       if (b64.length * 0.75 > MAX_BYTES) {
-        toast('That image is still too large (max 3 MB). Resize it and try again.', true);
+        toast('That image could not be compressed enough. Try a smaller file.', true);
+        return;
+      }
+      if (totalPendingBytes() + b64.length * 0.75 > MAX_TOTAL_CLIENT) {
+        toast('This publish already holds 50 MB of images. Publish them first, then add more.', true);
         return;
       }
       var path = 'assets/uploads/' + Date.now() + '-' + base + '.' + outExt;
@@ -293,10 +330,7 @@
       var big = dataUrl.length * 0.75 > 900 * 1024;
       if (scale === 1 && !big) { done(dataUrl, ext); return; }
 
-      var cw = Math.max(1, Math.round(w * scale));
-      var ch = Math.max(1, Math.round(h * scale));
-
-      function render(type) {
+      function render(cw, ch, type, quality) {
         var cv = document.createElement('canvas');
         cv.width = cw;
         cv.height = ch;
@@ -307,16 +341,28 @@
         }
         if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, cw, ch);
-        return cv.toDataURL(type, 0.88);
+        return cv.toDataURL(type, quality);
       }
 
-      if (ext === 'png') {
-        var png = render('image/png');
-        if (png.length * 0.75 > MAX_BYTES) done(render('image/jpeg'), 'jpg');
-        else done(png, 'png');
-      } else {
-        done(render('image/jpeg'), 'jpg');
+      // Try progressively lower quality, then progressively smaller dimensions,
+      // until the encoded image fits the safe per-image budget.
+      var qualities = [0.88, 0.8, 0.72, 0.64, 0.56];
+      var cw = Math.max(1, Math.round(w * scale));
+      var ch = Math.max(1, Math.round(h * scale));
+      var out = '';
+
+      for (var pass = 0; pass < 5; pass++) {
+        for (var q = 0; q < qualities.length; q++) {
+          out = render(cw, ch, 'image/jpeg', qualities[q]);
+          if (out.length * 0.75 <= MAX_BYTES) { done(out, 'jpg'); return; }
+        }
+        cw = Math.max(1, Math.round(cw * 0.78));
+        ch = Math.max(1, Math.round(ch * 0.78));
       }
+
+      // Last resort: very small JPEG (still sharp enough for the web).
+      out = render(cw, ch, 'image/jpeg', 0.5);
+      done(out, 'jpg');
     };
     img.src = dataUrl;
   }
@@ -924,71 +970,134 @@
   }
 
   function publish() {
-    var files = [];
-    if (json2(S) !== json2(BASE_S)) files.push({ path: "data/site.json", text: json2(S) });
-    if (json2(ED) !== json2(BASE_ED)) files.push({ path: "data/editor.json", text: json2(ED) });
-    var imgFiles = [];
-    Object.keys(pending).forEach(function (p) { imgFiles.push({ path: p, base64: pending[p].b64 }); });
-    var batches = [];
-    if (imgFiles.length > 0) { for (var k = 0; k < imgFiles.length; k += 3) batches.push(imgFiles.slice(k, k + 3)); }
-    if (files.length > 0) batches.push(files);
-    if (!batches.length || batches[0].length === 0) { toast("Nothing to publish."); return; }
-    var msgInput = $("#commitMsg");
-    var message = (msgInput && msgInput.value.trim()) || "Studio: update content";
-    var btn = $("#publishNow");
-    if (btn) { btn.disabled = true; btn.textContent = "Publishing…"; }
-    $("#publishTop").disabled = true;
+    var textFiles = [];
+    if (json2(S) !== json2(BASE_S)) textFiles.push({ path: 'data/site.json', text: json2(S) });
+    if (json2(ED) !== json2(BASE_ED)) textFiles.push({ path: 'data/editor.json', text: json2(ED) });
+
+    var imgFiles = Object.keys(pending).map(function (p) {
+      return { path: p, base64: pending[p].b64 };
+    });
+
+    // Vercel rejects request bodies above 4.5 MB, and base64 is ~4/3 of the
+    // file size. Packing by encoded characters (not by image count) is the
+    // only reliable way to publish many images: every batch stays small.
+    var BATCH_CHARS = 3.3 * 1024 * 1024;
+    var BATCH_MAX_FILES = 4;
+
+    function pack(list) {
+      var out = [], cur = [], size = 0;
+      list.forEach(function (f) {
+        var n = String(f.base64 || f.text || '').length;
+        if (cur.length && (size + n > BATCH_CHARS || cur.length >= BATCH_MAX_FILES)) {
+          out.push(cur);
+          cur = [];
+          size = 0;
+        }
+        cur.push(f);
+        size += n;
+      });
+      if (cur.length) out.push(cur);
+      return out;
+    }
+
+    var batches = pack(imgFiles);
+    if (textFiles.length) batches = batches.concat(pack(textFiles));
+    if (!batches.length) { toast('Nothing to publish.'); return; }
+
+    var msgInput = $('#commitMsg');
+    var baseMessage = (msgInput && msgInput.value.trim()) || 'Studio: update content';
+    var btn = $('#publishNow');
+    var idleLabel = btn ? btn.textContent : 'Publish now';
+    if (btn) { btn.disabled = true; btn.textContent = 'Publishing…'; }
+    $('#publishTop').disabled = true;
+
     function sendBatch(idx) {
       if (idx >= batches.length) {
-        if (btn) { btn.disabled = false; btn.textContent = "Publish now"; }
-        pending = {}; BASE_S = clone(S); BASE_ED = clone(ED);
-        renderProjects(); renderPublish(); paintState();
-        var host = $("#pubResult");
-        if (host) { host.hidden = false; clear(host); host.appendChild(node("h2", null, "Published")); var ok = node("div", "hint"); ok.innerHTML = "All batches published. Vercel is redeploying."; host.appendChild(ok); }
-        toast("Published (batched). The live site updates in about a minute.");
+        if (btn) { btn.disabled = false; btn.textContent = idleLabel; }
+        pending = {};
+        BASE_S = clone(S);
+        BASE_ED = clone(ED);
+        renderAll();
+        var host = $('#pubResult');
+        if (host) {
+          host.hidden = false;
+          clear(host);
+          host.appendChild(node('h2', null, 'Published'));
+          var ok = node('div', 'hint');
+          ok.innerHTML = 'All ' + batches.length + ' batch' + (batches.length > 1 ? 'es' : '') +
+            ' pushed to GitHub. Vercel is redeploying now.';
+          host.appendChild(ok);
+          host.scrollIntoView({ block: 'nearest' });
+        }
+        toast('Published. The live site updates in about a minute.');
         return;
       }
-      api("/api/publish", { method: "POST", body: JSON.stringify({ files: batches[idx], message: message }) }).then(function (j) {
+
+      var message = baseMessage + (batches.length > 1 ? ' (' + (idx + 1) + '/' + batches.length + ')' : '');
+      if (btn) btn.textContent = 'Publishing ' + (idx + 1) + '/' + batches.length + '…';
+
+      api('/api/publish', {
+        method: 'POST',
+        body: JSON.stringify({ files: batches[idx], message: message })
+      }).then(function (j) {
         if (!j.ok) {
-          if (btn) { btn.disabled = false; btn.textContent = "Publish now"; }
+          if (btn) { btn.disabled = false; btn.textContent = idleLabel; }
           paintState();
-          toast((j.msg || "Publish failed.") + (j.code ? " (" + j.code + ")" : ""), true);
+          var code = j.code || 'error';
+          if (code === 'auth') {
+            toast('Session expired — sign in again.', true);
+            setTimeout(function () { location.reload(); }, 900);
+            return;
+          }
+          if (code === 'no-token') {
+            toast('No GitHub token set in Vercel — see Connection above.', true);
+            return;
+          }
+          toast((j.msg || 'Publish failed.') + (j.code ? ' (' + j.code + ')' : ''), true);
           return;
         }
         sendBatch(idx + 1);
-      }).catch(function () { if (btn) { btn.disabled = false; btn.textContent = "Publish now"; } paintState(); toast("Network error.", true); });
+      }).catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = idleLabel; }
+        paintState();
+        toast('Network error while publishing.', true);
+      });
     }
+
     sendBatch(0);
+  }
+
+  // ---------------------------------------------------------------- eye
+  function setupEye() {
+    var btn = $('#togglePw');
+    var pw = $('#pw');
+    if (!btn || !pw) return;
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var show = pw.type === 'password';
+      pw.type = show ? 'text' : 'password';
+      btn.classList.toggle('is-on', show);
+      btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+      btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      btn.title = show ? 'Hide password' : 'Show password';
+      btn.classList.remove('pop');
+      void btn.offsetWidth;
+      btn.classList.add('pop');
+      try { pw.focus({ preventScroll: true }); } catch (err) { pw.focus(); }
+    });
+  }
+
   // ---------------------------------------------------------------- boot
   function boot() {
     document.querySelectorAll('nav.tabs button').forEach(function (b) {
       b.onclick = function () { setTab(b.getAttribute('data-tab')); };
     });
-    $('#loginBtn').onclick = function () {
-      login();
-      var w = document.getElementById('welcome');
-      if (w) { w.style.display = 'flex'; w.style.opacity = '1'; w.style.visibility = 'visible'; w.style.pointerEvents = 'auto'; }
-      setTimeout(function () {
-        var w2 = document.getElementById('welcome');
-        if (w2) { w2.style.opacity = '0'; w2.style.pointerEvents = 'none'; }
-        setTimeout(function () { var g = document.getElementById('gate'); if (g) g.hidden = true; var a = document.getElementById('app'); if (a) a.hidden = false; }, 800);
-      }, 2400);
-    };
-    $('#pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') login(); });
-    $('#togglePw').onclick = function () {
-      var pw = document.getElementById('pw');
-      pw.type = pw.type === 'password' ? 'text' : 'password';
-      var svg = document.querySelector('#togglePw svg');
-      if (svg) {
-        if (pw.type === 'password') {
-          svg.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
-          document.getElementById('togglePw').title = 'Show password';
-        } else {
-          svg.innerHTML = '<line x1="4" y1="4" x2="20" y2="20" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="4" x2="4" y2="20" stroke-width="2" stroke-linecap="round"/>';
-          document.getElementById('togglePw').title = 'Hide password';
-        }
-      }
-    };
+    setupEye();
+    $('#loginBtn').onclick = function (e) { e.preventDefault(); login(); };
+    $('#pw').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); login(); }
+    });
     $('#outBtn').onclick = function () { api('/api/logout', { method: 'POST' }).then(function () { location.reload(); }); };
     $('#publishTop').onclick = function () { setTab('publish'); };
     $('#previewBtn').onclick = function () { window.open('/', '_blank', 'noopener'); };

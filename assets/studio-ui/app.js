@@ -958,7 +958,7 @@
       acts.appendChild(pub);
       acts.appendChild(disc);
       ch.appendChild(acts);
-      ch.appendChild(node('div', 'hint', 'Publishing commits to GitHub, then Vercel redeploys the live site in about a minute.'));
+      ch.appendChild(node('div', 'hint', 'Up to 50 MB per publish. Large uploads are split into small automatic batches, so Vercel never rejects them. Publishing commits to GitHub, then Vercel redeploys in about a minute.'));
     }
     host.appendChild(ch);
 

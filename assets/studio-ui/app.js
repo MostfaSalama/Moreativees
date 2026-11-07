@@ -373,7 +373,7 @@
   function openProject(i) {
     sheetIndex = i;
     var p = i < 0
-      ? { id: '', name: '', cat: CATS[0], year: String(new Date().getFullYear()), client: '', role: '', desc: '', image: '', gallery: [], services: [], keywords: [], links: [], status: 'published' }
+      ? { id: '', name: '', cat: CATS[0], year: String(new Date().getFullYear()), client: '', role: '', desc: '', image: '', altImage: '', gallery: [], services: [], keywords: [], links: [], status: 'published' }
       : clone(S.projects[i]);
     if (!Array.isArray(p.gallery)) p.gallery = [];
     if (!Array.isArray(p.services)) p.services = [];
@@ -485,6 +485,36 @@
     coverField.appendChild(node('label', null, 'Cover image'));
     coverField.appendChild(coverWrap);
     box.appendChild(coverField);
+
+    // reveal image (before / after)
+    var altWrap = node('div', 'media');
+    var altPrev = node('div', 'prev');
+    var aimg = node('img');
+    aimg.src = imgSrc(p.altImage) || '';
+    altPrev.appendChild(aimg);
+    altWrap.appendChild(altPrev);
+    var actr = node('div', 'controls');
+    var apick = node('button', 'btn tiny', 'Upload reveal image');
+    apick.onclick = function () {
+      pickImage(function (path) {
+        p.altImage = path;
+        aimg.src = imgSrc(path);
+        paintState();
+        renderPublish();
+      });
+    };
+    var aclr = node('button', 'btn tiny', 'Clear');
+    aclr.onclick = function () { p.altImage = ''; aimg.removeAttribute('src'); paintState(); renderPublish(); };
+    var arow = node('div', 'row');
+    arow.appendChild(apick);
+    arow.appendChild(aclr);
+    actr.appendChild(arow);
+    actr.appendChild(node('div', 'sub', 'Second design revealed by the soft hover circle and the corner button. Leave empty to hide it.'));
+    altWrap.appendChild(actr);
+    var altField = node('div', 'field');
+    altField.appendChild(node('label', null, 'Reveal image (before / after)'));
+    altField.appendChild(altWrap);
+    box.appendChild(altField);
 
     // gallery
     var galField = node('div', 'field');

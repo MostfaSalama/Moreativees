@@ -270,6 +270,16 @@
     return '/' + path.replace(/^\.?\//, '');
   }
 
+  // Gallery entries can be a plain path or { image, alt } (the reveal image).
+  function galImg(g) {
+    if (typeof g === 'string') return g;
+    return (g && (g.image || g.url || g.src)) || '';
+  }
+  function galAlt(g) {
+    if (!g || typeof g !== 'object') return '';
+    return g.altImage || g.alt || g.after || g.reveal || '';
+  }
+
   var MAX_EDGE = 2400;                 // plenty for a 2x retina web image
   var MAX_BYTES = 2.2 * 1024 * 1024;   // encoded target per image
   var MAX_TOTAL_CLIENT = 50 * 1024 * 1024; // per publish session, across batches
@@ -490,7 +500,7 @@
     var altWrap = node('div', 'media');
     var altPrev = node('div', 'prev');
     var aimg = node('img');
-    aimg.src = imgSrc(p.altImage) || '';
+    if (p.altImage) aimg.src = imgSrc(p.altImage);
     altPrev.appendChild(aimg);
     altWrap.appendChild(altPrev);
     var actr = node('div', 'controls');
@@ -519,27 +529,60 @@
     // gallery
     var galField = node('div', 'field');
     galField.appendChild(node('label', null, 'Gallery'));
+    galField.appendChild(node('div', 'sub', 'The corner button on any image adds the “after” design revealed by the soft hover circle inside the project.'));
     var galHost = node('div', 'gal');
     function paintGal() {
       clear(galHost);
-      p.gallery.forEach(function (src, gi) {
-        var it = node('div', 'item');
+      p.gallery.forEach(function (entry, gi) {
+        var src = galImg(entry), alt = galAlt(entry);
+        var it = node('div', 'item' + (alt ? ' paired' : ''));
         var im = node('img');
         im.src = imgSrc(src);
         im.loading = 'lazy';
         it.appendChild(im);
+        if (alt) {
+          var th = node('img', 'altthumb');
+          th.src = imgSrc(alt);
+          th.loading = 'lazy';
+          th.title = 'Reveal image';
+          it.appendChild(th);
+        }
         var x = node('button', 'x', '×');
         x.title = 'Remove';
-        x.onclick = function () { p.gallery.splice(gi, 1); paintGal(); paintState(); };
+        x.onclick = function () { p.gallery.splice(gi, 1); paintGal(); paintState(); renderPublish(); };
         it.appendChild(x);
         var mv = node('div', 'mv');
         var l = node('button', null, '←');
-        l.onclick = function () { if (gi > 0) { var t = p.gallery[gi - 1]; p.gallery[gi - 1] = p.gallery[gi]; p.gallery[gi] = t; paintGal(); paintState(); } };
+        l.onclick = function () { if (gi > 0) { var t = p.gallery[gi - 1]; p.gallery[gi - 1] = p.gallery[gi]; p.gallery[gi] = t; paintGal(); paintState(); renderPublish(); } };
         var r = node('button', null, '→');
-        r.onclick = function () { if (gi < p.gallery.length - 1) { var t2 = p.gallery[gi + 1]; p.gallery[gi + 1] = p.gallery[gi]; p.gallery[gi] = t2; paintGal(); paintState(); } };
+        r.onclick = function () { if (gi < p.gallery.length - 1) { var t2 = p.gallery[gi + 1]; p.gallery[gi + 1] = p.gallery[gi]; p.gallery[gi] = t2; paintGal(); paintState(); renderPublish(); } };
         mv.appendChild(l);
         mv.appendChild(r);
         it.appendChild(mv);
+        var rv = node('button', 'rv' + (alt ? ' on' : ''), '⇄');
+        rv.title = alt ? 'Replace reveal image' : 'Add reveal image (before / after)';
+        rv.onclick = function () {
+          pickImage(function (path) {
+            var cur = p.gallery[gi];
+            if (cur && typeof cur === 'object') { cur.alt = path; }
+            else { p.gallery[gi] = { image: src || galImg(cur), alt: path }; }
+            paintGal(); paintState(); renderPublish();
+          });
+        };
+        it.appendChild(rv);
+        if (alt) {
+          var rvx = node('button', 'rvx', '×');
+          rvx.title = 'Clear reveal image';
+          rvx.onclick = function () {
+            var cur = p.gallery[gi];
+            if (cur && typeof cur === 'object') {
+              cur.alt = '';
+              if (!galAlt(cur)) p.gallery[gi] = galImg(cur);
+            }
+            paintGal(); paintState(); renderPublish();
+          };
+          it.appendChild(rvx);
+        }
         galHost.appendChild(it);
       });
       var addGal = node('button', 'ghostcard', '+ Image');

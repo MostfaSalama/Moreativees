@@ -674,6 +674,7 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/assets/project-reveal.js?v=1"></script>
 <script>
 (function(){
 var hasGsap = typeof gsap !== 'undefined';
@@ -788,14 +789,23 @@ function normProject(p,i){
   var fall=['COFFEE BEANS','FLAMMER','KASSY','MASJID 3D','TEMIZ'][i%5];
   var seed=(p&&p.name?String(p.name).toLowerCase().replace(/[^a-z0-9]+/g,''):'more'+i);
   var rawGal=(p&&Array.isArray(p.gallery)&&p.gallery.length)?p.gallery.slice():[];
-  // يدعم صيغتين من الـ admin: ["url",...] أو [{image:"url"},...]
-  var gal=rawGal.map(function(g){ if(typeof g==='string') return g; if(g&&typeof g==='object') return g.image||g.url||g.src||''; return ''; }).filter(Boolean);
+  // يدعم صيغتين من الـ admin: ["url",...] أو [{image:"url",alt:"url"},...]
+  var gal=rawGal.map(function(g){
+    var gi='', ga='';
+    if(g&&typeof g==='object'){
+      gi=g.image||g.url||g.src||'';
+      ga=g.altImage||g.alt||g.after||g.reveal||'';
+    }else{
+      gi=g;
+    }
+    return gi?{img:gi,alt:ga||''}:null;
+  }).filter(Boolean);
   if(!gal.length){
     var base=p&&p.image?p.image:'assets/design-0'+((i%5)+1)+'-'+['coffee-beans','flammer','kassy','architecture','billboard'][i%5]+'.jpg';
-    gal=[base,
-      'https://picsum.photos/seed/'+seed+'-a1920/1920/1080',
-      'https://picsum.photos/seed/'+seed+'-b1920/1920/1080',
-      'https://picsum.photos/seed/'+seed+'-c1920/1920/1080'];
+    gal=[{img:base,alt:''},
+      {img:'https://picsum.photos/seed/'+seed+'-a1920/1920/1080',alt:''},
+      {img:'https://picsum.photos/seed/'+seed+'-b1920/1920/1080',alt:''},
+      {img:'https://picsum.photos/seed/'+seed+'-c1920/1920/1080',alt:''}];
   }
   var pid=(p&&p.id)||String((p&&p.name)||fall).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
   return {
@@ -803,7 +813,7 @@ function normProject(p,i){
     status:(p&&p.status)||'published',
     t:(p&&p.name)||fall,
     d:(p&&p.desc)||'',
-    img:(p&&p.image)||gal[0],
+    img:(p&&p.image)||(gal[0]&&gal[0].img),
     gallery:gal,
     client:(p&&p.client)||'Moreative Client',
     year:(p&&p.year)||'2026',
@@ -1368,7 +1378,7 @@ Promise.all([loadSiteData(),loadEditor()]).then(function(){
   try{ if(window.ScrollTrigger) ScrollTrigger.refresh(); }catch(e){}
 });
 var __bIndex=0;
-function getGallery(p){ return (p.gallery&&p.gallery.length)?p.gallery:[p.img]; }
+function getGallery(p){ return (p.gallery&&p.gallery.length)?p.gallery:[{img:p.img,alt:''}]; }
 function openBehance(i){
   if(!PROJECTS.length) return;
   __bIndex=(i+PROJECTS.length)%PROJECTS.length;
@@ -1403,13 +1413,21 @@ function renderBehance(){
   var hero=document.getElementById('b-hero');
   hero.src=p.img; hero.alt=p.t+' — cover 1920x1080';
   hero.onerror=function(){this.onerror=null;this.src='https://picsum.photos/seed/'+__bIndex+'1920/1920/1080';};
+  var heroWrap=hero.parentNode;
+  if(window.ProjectReveal){
+    window.ProjectReveal.clear(heroWrap);
+    if(p.alt) window.ProjectReveal.attach(heroWrap,p.alt);
+  }
   var g=document.getElementById('b-gallery'); g.innerHTML='';
-  getGallery(p).forEach(function(src,k){
+  getGallery(p).forEach(function(item,k){
+    var src=(item&&item.img)||item||'';
+    var alt=(item&&item.alt)||'';
     if(k===0 && src===p.img) return;
     var fig=document.createElement('figure'); fig.className='behance-item';
     var im=document.createElement('img'); im.loading='lazy'; im.src=src; im.alt=p.t+' — shot '+(k+1)+' 1920x1080';
     im.onerror=function(){this.onerror=null;this.src='https://picsum.photos/seed/'+p.t.replace(/\s+/g,'')+k+'/1920/1080';};
     fig.appendChild(im); g.appendChild(fig);
+    if(alt&&window.ProjectReveal) window.ProjectReveal.attach(fig,alt);
   });
   var pv=PROJECTS[(__bIndex-1+PROJECTS.length)%PROJECTS.length];
   var nx=PROJECTS[(__bIndex+1)%PROJECTS.length];

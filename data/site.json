@@ -127,7 +127,9 @@
         "https://picsum.photos/seed/masjid-c1920/1920/1080"
       ],
       "status": "published",
-      "links": []
+      "links": [],
+      "keywords": [],
+      "altImage": "assets/uploads/1794043144202-22.jpg"
     },
     {
       "id": "temiz",

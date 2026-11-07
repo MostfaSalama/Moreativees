@@ -107,29 +107,37 @@
       "keywords": []
     },
     {
-      "id": "masjid-3d",
+      "id": "serrah",
       "cat": "3D Modeling",
-      "name": "MASJID 3D",
+      "name": "Serrah 3D Project",
       "desc": "Three 3D concepts for a modern mosque: movable prayer hall, green dome pavilion and stilted hall.",
       "image": "assets/uploads/1794043219448-1bu.jfif",
-      "client": "Masjid Concept",
-      "year": "2024",
-      "role": "3D Visualization",
+      "client": "serrah museum ",
+      "year": "2025",
+      "role": "3D ",
       "services": [
         "3D",
         "Architecture",
         "Visualization"
       ],
       "gallery": [
-        "assets/design-04-architecture.jpg?v=2",
-        "https://picsum.photos/seed/masjid-a1920/1920/1080",
-        "https://picsum.photos/seed/masjid-b1920/1920/1080",
-        "https://picsum.photos/seed/masjid-c1920/1920/1080"
+        {
+          "image": "assets/uploads/1794043910162-1helm.jfif",
+          "alt": "assets/uploads/1794043916941-2helm.jfif"
+        },
+        {
+          "image": "assets/uploads/1794043927791-1mqam.jfif",
+          "alt": "assets/uploads/1794043932442-2mqam.jfif"
+        },
+        {
+          "image": "assets/uploads/1794043948637-1str.jfif",
+          "alt": "assets/uploads/1794043952554-2str.jfif"
+        }
       ],
       "status": "published",
       "links": [],
       "keywords": [],
-      "altImage": "assets/uploads/1794043223391-2bu.jfif"
+      "altImage": ""
     },
     {
       "id": "temiz",
@@ -214,7 +222,7 @@
       "cover": "assets/uploads/1789976518237-3.png"
     },
     {
-      "project": "masjid-3d",
+      "project": "serrah",
       "cover": ""
     },
     {

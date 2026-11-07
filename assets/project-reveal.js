@@ -9,7 +9,7 @@
     '.pr-layer{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;transition:opacity .4s ease;' +
       '-webkit-mask-image:radial-gradient(circle var(--lr,160px) at var(--mx,50%) var(--my,50%),#000 0 40%,rgba(0,0,0,.94) 58%,rgba(0,0,0,.55) 78%,rgba(0,0,0,0) 100%);' +
       'mask-image:radial-gradient(circle var(--lr,160px) at var(--mx,50%) var(--my,50%),#000 0 40%,rgba(0,0,0,.94) 58%,rgba(0,0,0,.55) 78%,rgba(0,0,0,0) 100%)}' +
-    '.pr-layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:none;transform:none!important;background:#111}' +
+    '.pr-layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:none;transform:none!important}' +
     '.pr-reveal.pr-seen .pr-layer{opacity:1}' +
     '.pr-reveal.pr-on .pr-layer{opacity:1;-webkit-mask-image:none;mask-image:none}' +
     '.pr-ring{position:absolute;left:var(--mx,50%);top:var(--my,50%);z-index:2;width:calc(var(--lr,160px) * 1.36);height:calc(var(--lr,160px) * 1.36);transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(255,255,255,.42);box-shadow:0 0 30px rgba(0,0,0,.25) inset,0 12px 44px rgba(0,0,0,.32);opacity:0;transition:opacity .3s ease;pointer-events:none}' +

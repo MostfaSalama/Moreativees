@@ -133,12 +133,12 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 .work-card.has-swap.show-alt .wc-swap{opacity:1;-webkit-mask-image:none;mask-image:none}
 .wc-swapring{position:absolute;left:var(--mx,50%);top:var(--my,50%);z-index:3;width:calc(var(--lr,150px) * 1.36);height:calc(var(--lr,150px) * 1.36);transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(255,255,255,.42);box-shadow:0 0 30px rgba(0,0,0,.25) inset,0 12px 44px rgba(0,0,0,.32);opacity:0;transition:opacity .3s ease;pointer-events:none}
 .work-card.has-swap.is-lens .wc-swapring{opacity:.6}
-.wc-swapbtn{position:absolute;right:.9rem;bottom:.85rem;z-index:5;display:inline-flex;align-items:center;gap:.36rem;padding:.46rem .68rem .44rem;border-radius:999px;border:1px solid rgba(255,255,255,.34);background:rgba(10,10,10,.34);-webkit-backdrop-filter:blur(12px) saturate(1.15);backdrop-filter:blur(12px) saturate(1.15);box-shadow:0 8px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22);color:rgba(255,255,255,.92);font-family:'Space Grotesk',sans-serif;font-size:.49rem;font-weight:600;letter-spacing:.18em;line-height:1;text-transform:uppercase;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease}
-.wc-swapbtn svg{width:12px;height:12px;display:block;opacity:.9}
+.wc-swapbtn{position:absolute;top:.9rem;right:.9rem;z-index:5;display:grid;place-items:center;width:38px;height:38px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.34);background:rgba(10,10,10,.34);-webkit-backdrop-filter:blur(12px) saturate(1.15);backdrop-filter:blur(12px) saturate(1.15);box-shadow:0 8px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22),0 0 0 1px rgba(0,0,0,.14);color:rgba(255,255,255,.92);cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease}
+.wc-swapbtn svg{width:18px;height:18px;display:block;transition:transform .4s cubic-bezier(.2,.8,.25,1)}
+.work-card.show-alt .wc-swapbtn svg{transform:rotate(180deg)}
 .wc-swapbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.62)}
 .work-card.show-alt .wc-swapbtn{background:#f5f5f5;color:#050505;border-color:#f5f5f5}
 .work-card.has-swap .wc-arrow{display:none}
-.work-card.has-swap .wc-row{padding-right:82px}
 .work-card.is-reveal img{filter:none;transform:scale(1.045)}
 .work-card.is-reveal .wc-top,.work-card.is-reveal .wc-name{opacity:1;transform:none}
 .work-card.is-reveal .wc-grad{opacity:1}
@@ -160,14 +160,12 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
   .wc-name{padding:.9rem 1rem 1rem}
   .wc-name b{font-size:1rem}
   .wc-arrow{width:30px;height:30px}
-  .wc-swapbtn{right:.7rem;bottom:.7rem;padding:.42rem .56rem .4rem;font-size:.45rem;letter-spacing:.15em}
-  .work-card.has-swap .wc-row{padding-right:74px}
+  .wc-swapbtn{top:.7rem;right:.7rem;width:34px;height:34px;padding:0}
 }
 @media(hover:none){
   .wc-top{opacity:1;transform:none;background:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.18) 62%,rgba(0,0,0,0))}
-  .wc-swapbtn{top:.85rem;bottom:auto;right:.85rem;min-height:34px;padding:.5rem .8rem .48rem;font-size:.47rem}
+  .wc-swapbtn{width:38px;height:38px;min-height:0;padding:0}
   .work-card.has-swap .wc-arrow{display:grid}
-  .work-card.has-swap .wc-row{padding-right:0}
 }
 .more-wrap{display:flex;justify-content:center;margin-top:2.2rem}
 .more-btn{display:inline-flex;align-items:center;gap:.9rem;background:transparent;border:1px solid rgba(255,255,255,.28);color:#f5f5f5;border-radius:999px;padding:1rem 2.4rem;font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:.3em;font-size:.78rem;text-decoration:none;animation:calmPulse 3.2s ease-in-out infinite;transition:border-color .35s,background .35s}
@@ -674,7 +672,7 @@ section{padding:4rem 0} h1{font-size:clamp(2.5rem,8vw,5rem)} h2{font-size:clamp(
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="/assets/project-reveal.js?v=2"></script>
+<script src="/assets/project-reveal.js?v=3"></script>
 <script>
 (function(){
 var hasGsap = typeof gsap !== 'undefined';
@@ -1047,7 +1045,7 @@ window.setupStatement=setupStatement;
 window.setupManifesto=function(){ try{ setupStatement(); }catch(e){} };
 
 var GRID_LIMIT=6, gridExpanded=false, __wio=null;
-var WC_SWAP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.2" cy="12" r="5.6"/><circle cx="14.8" cy="12" r="5.6"/></svg>';
+var WC_SWAP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.4"></circle><path d="M12 3.6a8.4 8.4 0 0 1 0 16.8z" fill="currentColor" stroke="none"></path></svg>';
 function renderWorks(){
   try{
     var g=document.getElementById('works-grid'); if(!g) return;
@@ -1064,7 +1062,7 @@ function renderWorks(){
         (alt?'<span class="wc-swap" aria-hidden="true"><img class="wc-alt" loading="lazy" alt=""></span><span class="wc-swapring" aria-hidden="true"></span>':'')+
         '<span class="wc-grad"></span>'+
         '<span class="wc-name"><span class="wc-rule"></span><span class="wc-row"><b></b></span></span>'+
-        (alt?'<button class="wc-swapbtn" type="button" aria-pressed="false" aria-label="Show alternate design"><i class="wc-swapbtn-i">'+WC_SWAP+'</i><span class="wc-swapbtn-t">AFTER</span></button>':'');
+        (alt?'<button class="wc-swapbtn" type="button" aria-pressed="false" aria-label="Show alternate design" title="Show alternate design">'+WC_SWAP+'</button>':'');
       var img=a.querySelector('img'); img.src=p.img; img.alt=p.t;
       img.onerror=(function(n){ return function(){ this.onerror=null; this.src='https://picsum.photos/seed/grid'+n+'/1280/800'; }; })(i);
       a.querySelector('b').textContent=p.t;
@@ -1078,7 +1076,7 @@ function renderWorks(){
           var on=a.classList.toggle('show-alt');
           btn.setAttribute('aria-pressed',on?'true':'false');
           btn.setAttribute('aria-label',on?'Show original design':'Show alternate design');
-          btn.querySelector('.wc-swapbtn-t').textContent=on?'BEFORE':'AFTER';
+          btn.setAttribute('title',on?'Show original design':'Show alternate design');
           a.classList.remove('is-lens');
         };
         a.addEventListener('pointermove',function(e){

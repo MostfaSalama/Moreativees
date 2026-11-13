@@ -112,7 +112,7 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 }
 @media(hover:none){
   .wc-top{opacity:1;transform:none;background:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.18) 62%,rgba(0,0,0,0))}
-  .wc-swapbtn{top:3.2rem;bottom:auto;right:.85rem;min-height:34px;padding:.5rem .8rem .48rem;font-size:.47rem}
+  .wc-swapbtn{top:.85rem;bottom:auto;right:.85rem;min-height:34px;padding:.5rem .8rem .48rem;font-size:.47rem}
   .work-card.has-swap .wc-arrow{display:grid}
   .work-card.has-swap .wc-row{padding-right:0}
 }
@@ -327,7 +327,6 @@ function renderFilters(){
 function visible(){
   return PROJECTS.map(function(p,i){return {p:p,i:i};}).filter(function(o){ return curCat==='All'||o.p.cat===curCat; });
 }
-var WC_ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
 var WC_SWAP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.2" cy="12" r="5.6"/><circle cx="14.8" cy="12" r="5.6"/></svg>';
 function renderGrid(anim){
   var g=document.getElementById('works-grid');
@@ -345,13 +344,11 @@ function renderGrid(anim){
       a.innerHTML='<img loading="lazy" alt="">'+
         (alt?'<span class="wc-swap" aria-hidden="true"><img class="wc-alt" loading="lazy" alt=""></span><span class="wc-swapring" aria-hidden="true"></span>':'')+
         '<span class="wc-grad"></span>'+
-        '<span class="wc-top"><i class="wc-index">'+pad2(o.i+1)+'</i><i class="wc-cat"></i></span>'+
-        '<span class="wc-name"><span class="wc-rule"></span><span class="wc-row"><b></b><i class="wc-arrow">'+WC_ARROW+'</i></span></span>'+
+        '<span class="wc-name"><span class="wc-rule"></span><span class="wc-row"><b></b></span></span>'+
         (alt?'<button class="wc-swapbtn" type="button" aria-pressed="false" aria-label="Show alternate design"><i class="wc-swapbtn-i">'+WC_SWAP+'</i><span class="wc-swapbtn-t">AFTER</span></button>':'');
       var img=a.querySelector('img'); img.src=o.p.img; img.alt=o.p.t;
       img.onerror=function(){this.onerror=null;this.src='https://picsum.photos/seed/arch'+o.i+'/1280/800';};
       a.querySelector('b').textContent=o.p.t;
-      a.querySelector('.wc-cat').textContent=String(o.p.cat||'').toUpperCase();
       if(alt){
         var altImg=a.querySelector('.wc-alt');
         altImg.src=alt; altImg.alt=(o.p.t||'')+' — alternate';

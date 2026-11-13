@@ -165,7 +165,7 @@ body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow
 }
 @media(hover:none){
   .wc-top{opacity:1;transform:none;background:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.18) 62%,rgba(0,0,0,0))}
-  .wc-swapbtn{top:3.2rem;bottom:auto;right:.85rem;min-height:34px;padding:.5rem .8rem .48rem;font-size:.47rem}
+  .wc-swapbtn{top:.85rem;bottom:auto;right:.85rem;min-height:34px;padding:.5rem .8rem .48rem;font-size:.47rem}
   .work-card.has-swap .wc-arrow{display:grid}
   .work-card.has-swap .wc-row{padding-right:0}
 }
@@ -1047,10 +1047,7 @@ window.setupStatement=setupStatement;
 window.setupManifesto=function(){ try{ setupStatement(); }catch(e){} };
 
 var GRID_LIMIT=6, gridExpanded=false, __wio=null;
-var WC_ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
 var WC_SWAP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.2" cy="12" r="5.6"/><circle cx="14.8" cy="12" r="5.6"/></svg>';
-function wcPad(n){ return (n<10?'0':'')+n; }
-function wcCat(p){ return String((p&&p.cat)||'PROJECT').toUpperCase(); }
 function renderWorks(){
   try{
     var g=document.getElementById('works-grid'); if(!g) return;
@@ -1066,13 +1063,11 @@ function renderWorks(){
       a.innerHTML='<img loading="lazy" alt="">'+
         (alt?'<span class="wc-swap" aria-hidden="true"><img class="wc-alt" loading="lazy" alt=""></span><span class="wc-swapring" aria-hidden="true"></span>':'')+
         '<span class="wc-grad"></span>'+
-        '<span class="wc-top"><i class="wc-idx">'+wcPad(i+1)+'</i><i class="wc-cat"></i></span>'+
-        '<span class="wc-name"><span class="wc-rule"></span><span class="wc-row"><b></b><i class="wc-arrow">'+WC_ARROW+'</i></span></span>'+
+        '<span class="wc-name"><span class="wc-rule"></span><span class="wc-row"><b></b></span></span>'+
         (alt?'<button class="wc-swapbtn" type="button" aria-pressed="false" aria-label="Show alternate design"><i class="wc-swapbtn-i">'+WC_SWAP+'</i><span class="wc-swapbtn-t">AFTER</span></button>':'');
       var img=a.querySelector('img'); img.src=p.img; img.alt=p.t;
       img.onerror=(function(n){ return function(){ this.onerror=null; this.src='https://picsum.photos/seed/grid'+n+'/1280/800'; }; })(i);
       a.querySelector('b').textContent=p.t;
-      a.querySelector('.wc-cat').textContent=wcCat(p);
       if(alt){
         var altImg=a.querySelector('.wc-alt');
         altImg.src=alt; altImg.alt=(p.t||'')+' — alternate';

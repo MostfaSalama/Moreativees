@@ -1,0 +1,96 @@
+/* MOREATIVE — project case view
+   Full-bleed imagery (Behance style) + editorial project footer. */
+
+#behance-view{position:fixed;inset:0;z-index:95;background:#080808;display:none;overflow-y:auto;overscroll-behavior:contain;animation:bcvFade .45s ease}
+#behance-view.open{display:block}
+@keyframes bcvFade{from{opacity:0}to{opacity:1}}
+
+/* ---------- sticky bar ---------- */
+.behance-head{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1.25rem;background:rgba(5,5,5,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.behance-head .b-title{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.12em;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
+.b-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-family:inherit;font-size:.8rem;letter-spacing:.12em;color:#fff;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.b-btn:hover{background:#f5f5f5;color:#000;border-color:#f5f5f5}
+.b-btn.solid{background:#f5f5f5;color:#000;border-color:#f5f5f5;font-weight:700}
+.b-count{font-size:.75rem;letter-spacing:.25em;color:rgba(255,255,255,.5)}
+
+/* ---------- frame + intro copy ---------- */
+.behance-frame{width:100%;margin:0;padding:0}
+.b-copy{max-width:1400px;margin:0 auto;padding:clamp(2rem,5vw,4.2rem) clamp(1.15rem,4vw,3.2rem) clamp(1.2rem,3vw,2rem)}
+.behance-kicker{display:flex;align-items:center;gap:.85rem;font-family:'Space Grotesk',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.behance-kicker::before{content:'';flex:none;width:clamp(1.6rem,3vw,3rem);height:1px;background:rgba(255,255,255,.35)}
+.behance-title{font-family:'Archivo Black',sans-serif;font-size:clamp(2.1rem,6.4vw,5.2rem);line-height:.94;letter-spacing:-.012em;margin:.85rem 0 1rem}
+.behance-desc{color:rgba(255,255,255,.66);font-size:clamp(.95rem,1.5vw,1.16rem);line-height:1.75;max-width:76ch}
+
+@media(min-width:1000px){
+  .b-copy{display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);column-gap:clamp(1.5rem,4vw,4rem);align-items:end;padding-bottom:clamp(1.6rem,3.4vw,2.4rem)}
+  .behance-kicker{grid-column:1;grid-row:1}
+  .behance-title{grid-column:1;grid-row:2;margin:.85rem 0 0}
+  .behance-desc{grid-column:2;grid-row:2;align-self:end;font-size:clamp(.95rem,1.15vw,1.06rem);line-height:1.8;padding-bottom:.5rem;border-top:1px solid rgba(255,255,255,.14);padding-top:1.1rem}
+  .b-copy.no-desc{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---------- imagery: edge to edge, no gaps ---------- */
+.behance-hero,.behance-item{margin:0;padding:0;border:0;border-radius:0;overflow:hidden;background:#0b0b0b;box-shadow:none}
+.behance-hero img,.behance-item img{display:block;width:100%;height:auto;max-width:100%;object-fit:cover;background:#0b0b0b}
+#b-gallery{display:block;margin:0;padding:0}
+#b-gallery .behance-item{margin:0}
+
+/* ---------- project footer ---------- */
+.b-outro{border-top:1px solid rgba(255,255,255,.09)}
+.b-outgrid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(1.6rem,4vw,3.6rem);max-width:1400px;margin:0 auto;padding:clamp(2.1rem,5vw,3.6rem) clamp(1.15rem,4vw,3.2rem) 0}
+.b-outgrid.no-tools{grid-template-columns:minmax(0,1fr)}
+.b-outgrid.no-tools .b-facts{max-width:780px}
+.b-block{min-width:0}
+.b-lab{display:flex;align-items:center;gap:.8rem;font-family:'Space Grotesk',sans-serif;font-size:.56rem;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:1.15rem}
+.b-lab::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1)}
+
+.b-tools{display:flex;flex-wrap:wrap;gap:.5rem}
+.tool{display:inline-flex;align-items:center;gap:.55rem;padding:.4rem .9rem .4rem .4rem;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(255,255,255,.025);transition:border-color .3s,background .3s}
+.tool:hover{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.06)}
+.tool-ico{flex:none;width:27px;height:27px;border-radius:8px;display:grid;place-items:center;background:#f5f5f5;color:#050505;font-family:'Space Grotesk',sans-serif;font-size:.55rem;font-weight:700;line-height:1;letter-spacing:-.02em;text-align:center;padding-left:1px}
+.tool-name{font-family:'Inter',sans-serif;font-size:.67rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.78);white-space:nowrap}
+
+.b-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.05rem 1.6rem}
+.b-fact{min-width:0}
+.b-fact span{display:block;font-family:'Space Grotesk',sans-serif;font-size:.53rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.34rem}
+.b-fact b{display:block;font-family:'Inter',sans-serif;font-weight:500;font-size:.9rem;line-height:1.4;color:rgba(255,255,255,.92);word-break:break-word}
+a.b-fact{text-decoration:none}
+a.b-fact b{border-bottom:1px solid rgba(255,255,255,.35);display:inline-block;padding-bottom:1px;transition:border-color .3s}
+a.b-fact:hover b{border-color:#fff}
+
+.b-tags{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.4rem;max-width:1400px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding:clamp(1.9rem,4vw,2.6rem) clamp(1.15rem,4vw,3.2rem) 0}
+.b-tag{font-family:'Space Grotesk',sans-serif;font-size:clamp(.9rem,1.7vw,1.26rem);font-weight:600;line-height:1.55;color:rgba(255,255,255,.62);transition:color .3s}
+.b-tag:hover{color:#fff}
+.b-tag em{font-style:normal;font-size:.46em;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.3);margin-right:.75em;vertical-align:super;font-variant-numeric:tabular-nums}
+
+/* ---------- prev / next ---------- */
+.behance-nav{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:1400px;margin:0 auto;padding:clamp(2rem,5vw,3.2rem) clamp(1.15rem,4vw,3.2rem) clamp(2.4rem,6vw,4rem)}
+.behance-nav button{position:relative;height:150px;border-radius:1rem;overflow:hidden;border:1px solid rgba(255,255,255,.13);cursor:pointer;background:#111;color:#fff;text-align:left;font-family:inherit;padding:0}
+.behance-nav button img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;transition:opacity .4s,transform .6s}
+.behance-nav button:hover img{opacity:.6;transform:scale(1.04)}
+.behance-nav button span{position:relative;z-index:1;display:block;padding:1.1rem;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.1em;font-size:.92rem}
+.behance-nav button small{position:relative;z-index:1;display:block;padding:0 1.1rem;font-size:.6rem;letter-spacing:.26em;color:rgba(255,255,255,.65)}
+
+@media(max-width:900px){
+  .b-outgrid{grid-template-columns:1fr;gap:1.8rem}
+}
+@media(max-width:720px){
+  .behance-frame{padding:0}
+  .behance-title{font-size:clamp(2rem,9vw,3rem)}
+  .behance-desc{font-size:.95rem;line-height:1.7}
+  .b-facts{gap:.95rem 1.1rem}
+  .behance-nav{grid-template-columns:1fr;gap:.6rem}
+  .behance-nav button{height:112px}
+  .tool-name{font-size:.62rem}
+  .tool{padding:.36rem .75rem .36rem .36rem}
+  .tool-ico{width:24px;height:24px;border-radius:7px;font-size:.5rem}
+}
+@media(max-width:640px){
+  .behance-head{padding:.7rem .9rem}
+  .behance-head .b-title{display:none}
+  .b-btn{padding:.55rem .9rem;font-size:.72rem}
+}
+@media(prefers-reduced-motion:reduce){
+  #behance-view{animation:none}
+  .behance-nav button img{transition:none}
+}

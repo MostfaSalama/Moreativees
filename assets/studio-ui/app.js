@@ -383,11 +383,12 @@
   function openProject(i) {
     sheetIndex = i;
     var p = i < 0
-      ? { id: '', name: '', cat: CATS[0], year: String(new Date().getFullYear()), client: '', role: '', desc: '', image: '', altImage: '', gallery: [], services: [], keywords: [], links: [], status: 'published' }
+      ? { id: '', name: '', cat: CATS[0], year: String(new Date().getFullYear()), client: '', role: '', desc: '', image: '', altImage: '', gallery: [], services: [], keywords: [], tools: [], links: [], status: 'published' }
       : clone(S.projects[i]);
     if (!Array.isArray(p.gallery)) p.gallery = [];
     if (!Array.isArray(p.services)) p.services = [];
     if (!Array.isArray(p.keywords)) p.keywords = [];
+    if (!Array.isArray(p.tools)) p.tools = [];
     if (!Array.isArray(p.links)) p.links = [];
 
     var box = $('#sheetBox');
@@ -602,6 +603,71 @@
     g5.appendChild(field('Services (one per line)', area(lines(p.services), function (v) { p.services = fromLines(v); }, 4)));
     g5.appendChild(field('Keywords (one per line)', area(lines(p.keywords), function (v) { p.keywords = fromLines(v); }, 4)));
     box.appendChild(g5);
+
+    // tools used — chips picked from the shared catalog, plus free entries
+    var toolsField = node('div', 'field');
+    toolsField.appendChild(node('label', null, 'Tools used'));
+    toolsField.appendChild(node('div', 'sub', 'Tick the apps you used. Each one appears with its icon in the project footer on the site.'));
+    var toolHost = node('div', 'toolpick');
+    function toolKey(t) { return String(t == null ? '' : t).trim().toLowerCase(); }
+    function hasTool(label) {
+      return p.tools.some(function (t) { return toolKey(t) === toolKey(label); });
+    }
+    function toggleTool(label) {
+      var k = toolKey(label);
+      var at = -1;
+      p.tools.forEach(function (t, idx) { if (toolKey(t) === k) at = idx; });
+      if (at >= 0) p.tools.splice(at, 1); else p.tools.push(String(label).trim());
+      paintTools(); paintState(); renderPublish();
+    }
+    function paintTools() {
+      clear(toolHost);
+      var cat = (window.ProjectTools && window.ProjectTools.catalog) ? window.ProjectTools.catalog : [];
+      cat.forEach(function (c) {
+        var on = hasTool(c.label);
+        var b = node('button', 'toolchip' + (on ? ' on' : ''));
+        b.type = 'button';
+        b.title = on ? 'Remove ' + c.label : 'Add ' + c.label;
+        b.appendChild(node('i', 'toolchip-ico', c.abbr));
+        b.appendChild(node('span', 'toolchip-n', c.label));
+        b.onclick = function () { toggleTool(c.label); };
+        toolHost.appendChild(b);
+      });
+      p.tools.forEach(function (t) {
+        var known = cat.some(function (c) { return toolKey(c.label) === toolKey(t); });
+        if (known) return;
+        var b = node('button', 'toolchip on');
+        b.type = 'button';
+        b.title = 'Remove ' + t;
+        b.appendChild(node('i', 'toolchip-ico', window.ProjectTools ? window.ProjectTools.initials(t) : '•'));
+        b.appendChild(node('span', 'toolchip-n', t));
+        b.appendChild(node('b', 'toolchip-x', '×'));
+        b.onclick = function () { toggleTool(t); };
+        toolHost.appendChild(b);
+      });
+    }
+    paintTools();
+    toolsField.appendChild(toolHost);
+
+    var toolAddRow = node('div', 'tooladd');
+    var toolInput = node('input');
+    toolInput.type = 'text';
+    toolInput.placeholder = 'Add another app (e.g. ZBrush)';
+    function addTool() {
+      var v = String(toolInput.value || '').trim();
+      if (!v) return;
+      if (!hasTool(v)) p.tools.push(v);
+      toolInput.value = '';
+      paintTools(); paintState(); renderPublish();
+    }
+    var toolAddBtn = node('button', 'btn tiny', 'Add');
+    toolAddBtn.type = 'button';
+    toolAddBtn.onclick = addTool;
+    toolInput.onkeydown = function (e) { if (e.key === 'Enter') { e.preventDefault(); addTool(); } };
+    toolAddRow.appendChild(toolInput);
+    toolAddRow.appendChild(toolAddBtn);
+    toolsField.appendChild(toolAddRow);
+    box.appendChild(toolsField);
 
     box.appendChild(field('Links (label | url, one per line)', area((p.links || []).map(function (l) { return (l.label || '') + ' | ' + (l.url || ''); }).join('\n'), function (v) {
       p.links = String(v).split('\n').map(function (row) {

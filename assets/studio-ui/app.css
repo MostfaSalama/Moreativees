@@ -132,6 +132,21 @@ main{flex:1;padding:1.4rem 1.1rem 4rem;max-width:1280px;width:100%;margin:0 auto
 .gal .item .rv.on{background:#f5f5f5;color:#000;border-color:#f5f5f5}
 .gal .item .rvx{position:absolute;right:1.75rem;bottom:.2rem;width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.7);color:#fff;font-size:.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
+/* tools picker */
+.toolpick{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.15rem}
+.toolchip{display:inline-flex;align-items:center;gap:.42rem;padding:.28rem .62rem .28rem .3rem;border:1px solid var(--line);border-radius:999px;background:#141416;color:rgba(255,255,255,.78);font-family:inherit;font-size:.72rem;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.toolchip:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.toolchip.on{background:#f5f5f5;border-color:#f5f5f5;color:#000;font-weight:600}
+.toolchip-ico{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;background:#f5f5f5;color:#050505;font-style:normal;font-family:'Space Grotesk',sans-serif;font-size:.52rem;font-weight:700;line-height:1;letter-spacing:-.02em;padding-left:1px}
+.toolchip.on .toolchip-ico{background:#111;color:#fff}
+.toolchip-n{white-space:nowrap}
+.toolchip-x{font-size:.78rem;line-height:1;opacity:.5;font-weight:400}
+.toolchip.on .toolchip-x{opacity:.6}
+.tooladd{display:flex;gap:.4rem;margin-top:.55rem}
+.tooladd input{flex:1;min-width:0;background:#141416;border:1px solid var(--line);border-radius:.5rem;padding:.42rem .6rem;color:#fff;font-family:inherit;font-size:.76rem}
+.tooladd input:focus{outline:none;border-color:rgba(255,255,255,.45)}
+.tooladd .btn{flex:none}
+
 /* toast */
 #toast{position:fixed;left:50%;bottom:1.4rem;transform:translateX(-50%) translateY(20px);background:#f5f5f5;color:#000;font-size:.78rem;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:90;max-width:92vw;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
